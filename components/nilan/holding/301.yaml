@@ -9,3 +9,4 @@ number:
     address: 301
     force_new_range: true
     use_write_multiple: true
+    internal: true

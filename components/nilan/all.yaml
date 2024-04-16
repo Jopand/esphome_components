@@ -70,6 +70,43 @@ binary_sensor:
         || id(nilan_alarm_list_2_id).state == 19
         || id(nilan_alarm_list_3_id).state == 19);
 
+button:
+  - platform: template
+    id: nilan_sync_homeassistant_time
+    name: Sync time with Home Assistant
+    on_press:
+      then:
+        lambda: !lambda |-
+          auto current_time = id(homeassistant_time).now();
+          ESP_LOGI("custom_logger", "Current Date: %04d-%02d-%02d, Time: %02d:%02d:%02d",
+          current_time.year, current_time.day_of_month, current_time.day_of_week,
+          current_time.hour, current_time.minute, current_time.second); 
+
+          // Within lambda, push a value of 42
+          auto callSecond = id(nilan_time_second).make_call();
+          callSecond.set_value(current_time.second);
+          callSecond.perform();
+
+          auto callMinute = id(nilan_time_minute).make_call();
+          callMinute.set_value(current_time.minute);
+          callMinute.perform();
+
+          auto callHour = id(nilan_time_hour).make_call();
+          callHour.set_value(current_time.hour);
+          callHour.perform();
+
+          auto callDay = id(nilan_time_day).make_call();
+          callDay.set_value(current_time.day_of_month);
+          callDay.perform();
+
+          auto callMonth = id(nilan_time_month).make_call();
+          callMonth.set_value(current_time.month);
+          callMonth.perform();
+
+          auto callYear = id(nilan_time_year).make_call();
+          callYear.set_value(current_time.year);
+          callYear.perform();
+
 text_sensor:
   - platform: template
     name: "Air Quality Index CO2 (AQI)"
