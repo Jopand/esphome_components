@@ -70,6 +70,10 @@ binary_sensor:
         || id(nilan_alarm_list_2_id).state == 19
         || id(nilan_alarm_list_3_id).state == 19);
 
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+
 button:
   - platform: template
     id: nilan_sync_homeassistant_time
