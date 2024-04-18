@@ -1,12 +1,15 @@
-sensor:
+number:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
-    name: "Max winter temperature"
+    name: "Inlet max winter temperature"
     id: nilan_max_winter_temp
+    min_value: 0
+    max_value: 100
+    step: 1.0
     unit_of_measurement: °C
-    accuracy_decimals: 1
+    accuracy_decimals: 0
     device_class: temperature
-    register_type: holding
     address: 1204
-    filters:
-      - multiply: 0.01
+    force_new_range: true
+    use_write_multiple: true
+    multiply: 100           

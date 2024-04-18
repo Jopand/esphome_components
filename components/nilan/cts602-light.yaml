@@ -1,0 +1,18 @@
+packages:
+  remote_package:
+    url: https://github.com/Jopand/esphome_components
+    ref: split_into_separate_files
+    files:
+      - components/nilan/all.yaml
+      ### INPUT REGISTER FILES ###
+      - components/nilan/input/105.yaml
+      ### HOLDING REGISTER FILES ###
+      - components/nilan/holding/1200.yaml
+      - components/nilan/holding/1201.yaml
+      - components/nilan/holding/1202.yaml
+      - components/nilan/holding/1203.yaml
+      - components/nilan/holding/1204.yaml
+      - components/nilan/holding/1205.yaml
+      - components/nilan/holding/1206.yaml
+      - components/nilan/holding/1207.yaml
+    refresh: 0s

@@ -1,15 +1,15 @@
 number:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
-    name: "Inlet min winter temperature"
-    id: nilan_min_winter_temp
+    name: "Outdoor day temperature for night cooling activation"
+    id: nilan_night_day_limit
     min_value: 0
-    max_value: 100
+    max_value: 40
     step: 1.0
     unit_of_measurement: °C
     accuracy_decimals: 0
     device_class: temperature
-    address: 1202
+    address: 1206
     force_new_range: true
     use_write_multiple: true
-    multiply: 100           
+    multiply: 100

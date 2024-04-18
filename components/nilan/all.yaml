@@ -86,7 +86,7 @@ button:
           current_time.year, current_time.day_of_month, current_time.day_of_week,
           current_time.hour, current_time.minute, current_time.second); 
 
-          // Within lambda, push a value of 42
+          // Set all time entity values
           auto callSecond = id(nilan_time_second).make_call();
           callSecond.set_value(current_time.second);
           callSecond.perform();
