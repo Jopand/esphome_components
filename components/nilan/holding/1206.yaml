@@ -7,7 +7,6 @@ number:
     max_value: 40
     step: 1.0
     unit_of_measurement: °C
-    accuracy_decimals: 0
     device_class: temperature
     address: 1206
     force_new_range: true
