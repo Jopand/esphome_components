@@ -3,7 +3,6 @@ sensor:
     modbus_controller_id: nilan_modbus_controller
     name: "Actual value for controlled temperature"
     id: nilan_temp_control
-    entity_category: "Room temperature control"
     unit_of_measurement: °C
     accuracy_decimals: 1
     device_class: temperature
