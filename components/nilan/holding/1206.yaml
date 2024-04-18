@@ -3,6 +3,7 @@ number:
     modbus_controller_id: nilan_modbus_controller
     name: "Outdoor day temperature for night cooling activation"
     id: nilan_night_day_limit
+    entity_category: "Room temperature control"
     min_value: 0
     max_value: 40
     step: 1.0

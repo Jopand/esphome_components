@@ -3,6 +3,7 @@ binary_sensor:
     modbus_controller_id: nilan_modbus_controller
     name: "Summer mode"
     id: nilan_is_summer
+    entity_category: "Room temperature control"
     register_type: read
     address: 1200
     bitmask: 1

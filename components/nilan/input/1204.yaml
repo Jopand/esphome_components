@@ -3,6 +3,7 @@ sensor:
     modbus_controller_id: nilan_modbus_controller
     name: "Heat exchange efficiency"
     id: nilan_heat_exchange_efficiency
+    entity_category: "Room temperature control"
     unit_of_measurement: '%'
     accuracy_decimals: 1
     register_type: read

@@ -3,6 +3,7 @@ number:
     modbus_controller_id: nilan_modbus_controller
     name: "Inlet max winter temperature"
     id: nilan_max_winter_temp
+    entity_category: "Room temperature control"
     min_value: 0
     max_value: 100
     step: 1.0

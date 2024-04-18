@@ -3,6 +3,7 @@ number:
     modbus_controller_id: nilan_modbus_controller
     name: "Free energy night cooling room setpoint"
     id: nilan_free_energy_night_cooling_room_setpoint
+    entity_category: "Room temperature control"
     min_value: 10
     max_value: 30
     step: 1.0

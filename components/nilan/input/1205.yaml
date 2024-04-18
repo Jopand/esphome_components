@@ -3,6 +3,7 @@ sensor:
     modbus_controller_id: nilan_modbus_controller
     name: "Requested capacity"
     id: nilan_requested_capacity
+    entity_category: "Room temperature control"
     unit_of_measurement: '%'
     accuracy_decimals: 0
     register_type: read
