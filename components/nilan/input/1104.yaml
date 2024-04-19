@@ -1,10 +1,9 @@
 sensor:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
-    name: "Bus version"
-    id: nilan_bus_version
-    skip_updates: 60
+    name: "Days to next filter change alarm"
+    id: nilan_days_to_next_filter_alarm
+    unit_of_measurement: 'days'
     accuracy_decimals: 0
-    entity_category: diagnostic
     register_type: read
-    address: 0
+    address: 1104

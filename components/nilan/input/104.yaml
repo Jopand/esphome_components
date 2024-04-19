@@ -1,0 +1,8 @@
+binary_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Motor thermo fuse"
+    id: nilan_motor_thermo_fuse
+    register_type: read
+    address: 104
+    bitmask: 1

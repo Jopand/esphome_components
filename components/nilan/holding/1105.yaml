@@ -1,0 +1,16 @@
+select:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Filter Alarm Days Set"
+    id: nilan_filteralarm_days_set
+    address: 1105
+    force_new_range: true
+    use_write_multiple: true
+    value_type: U_WORD
+    optionsmap:
+      "Pressure guard (Input)" : 0
+      "30 days" : 1
+      "90 days" : 2
+      "180 days" : 3
+      "360 days" : 4
+      "70 days + Pressure guard" : 5

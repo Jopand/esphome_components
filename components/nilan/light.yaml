@@ -6,50 +6,18 @@ packages:
       - components/nilan/all.yaml
       ### INPUT REGISTER FILES ###
       - components/nilan/input/105.yaml
+      - components/nilan/input/113.yaml
+      - components/nilan/input/114.yaml
+      - components/nilan/input/115.yaml
+      - components/nilan/input/1101.yaml
+      - components/nilan/input/1102.yaml
+      - components/nilan/input/1103.yaml
+      - components/nilan/input/1104.yaml
+      - components/nilan/input/1204.yaml
       ### HOLDING REGISTER FILES ###
     refresh: 0s
 
-sensor:
-#########################
-#### INPUT REGISTERS ####
-#########################   
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Actual fan step"
-    id: nilan_actual_fan_step
-    accuracy_decimals: 0
-    register_type: read
-    address: 1100    
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Days since last filter change alarm"
-    id: nilan_days_since_last_filter_alarm
-    unit_of_measurement: 'days'
-    accuracy_decimals: 0
-    register_type: read
-    address: 1103
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Days to next filter change alarm"
-    id: nilan_days_to_next_filter_alarm
-    unit_of_measurement: 'days'
-    accuracy_decimals: 0
-    register_type: read
-    address: 1104
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Heat exchange efficiency"
-    id: nilan_heat_exchange_efficiency
-    unit_of_measurement: '%'
-    accuracy_decimals: 1
-    register_type: read
-    address: 1204
-    filters:
-      - multiply: 0.01
-      
+sensor: 
 ###########################
 #### HOLDING REGISTERS ####
 ###########################
@@ -112,62 +80,3 @@ sensor:
     address: 1204
     filters:
       - multiply: 0.01
-
-binary_sensor:
-#########################
-#### INPUT REGISTERS ####        
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Door open"
-    id: nilan_door_open
-    register_type: read
-    address: 102
-    bitmask: 1
-    
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Motor thermo fuse"
-    id: nilan_motor_thermo_fuse
-    register_type: read
-    address: 104
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Airflow monitor"
-    id: nilan_airflow_monitor
-    register_type: read
-    address: 106
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Low pressure switch"
-    id: nilan_low_pressure
-    register_type: read
-    address: 108
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "User function 2"
-    id: nilan_user_function_2
-    register_type: read
-    address: 113
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Air damper closed"
-    id: nilan_damper_closed
-    register_type: read
-    address: 114
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Air damper opened"
-    id: nilan_damper_opened
-    register_type: read
-    address: 115
-    bitmask: 1
