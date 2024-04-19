@@ -8,4 +8,12 @@ packages:
       ### HOLDING REGISTER FILES ###
       - components/nilan/holding/4002.yaml
       - components/nilan/holding/4003.yaml
+      - components/nilan/holding/4100.yaml
+      - components/nilan/holding/4101.yaml
+      - components/nilan/holding/4102.yaml
+      - components/nilan/holding/4103.yaml
+      - components/nilan/holding/4104.yaml
+      - components/nilan/holding/4105.yaml
+      - components/nilan/holding/4106.yaml
+      - components/nilan/holding/4107.yaml
     refresh: 0s
