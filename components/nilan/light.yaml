@@ -4,11 +4,4 @@ packages:
     ref: split_into_separate_files
     files:
       - components/nilan/cts602-light.yaml
-      ### INPUT REGISTER FILES ###
-      ### HOLDING REGISTER FILES ###
-      - components/nilan/holding/1200.yaml
-      - components/nilan/holding/1201.yaml
-      - components/nilan/holding/1202.yaml
-      - components/nilan/holding/1203.yaml
-      - components/nilan/holding/1204.yaml
     refresh: 0s
