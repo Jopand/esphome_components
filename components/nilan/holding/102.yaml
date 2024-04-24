@@ -1,0 +1,9 @@
+binary_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    id: nilan_bypass_open_request
+    register_type: holding
+    address: 102
+    on_state: 
+    - lambda: !lambda |-
+        id(nilan_bypass_state).publish_state(true);

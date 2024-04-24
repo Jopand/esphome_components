@@ -53,19 +53,6 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
-    name: "Heating surface temperature"
-    id: nilan_heater_temp_t9
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    value_type: S_WORD
-    register_type: read
-    address: 209
-    filters:
-      - multiply: 0.01
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
     name: "Hot weater top temperature"
     id: nilan_top_temp_t11
     unit_of_measurement: °C
@@ -194,49 +181,12 @@ binary_sensor:
 ###########################
 #### HOLDING REGISTERS ####
 ###########################
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Air flap"
-    id: nilan_air_flap
-    register_type: holding
-    address: 100
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Smoke flap"
-    id: nilan_smoke_flap
-    register_type: holding
-    address: 101
-
-  - platform: template
-    id: nilan_bypass_state
-    name: Bypass state
-    device_class: opening
     
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    id: nilan_bypass_open_request
-    register_type: holding
-    address: 102
-    on_state: 
-    - lambda: !lambda |-
-        id(nilan_bypass_state).publish_state(true);
+
         
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    id: nilan_bypass_close_request
-    register_type: holding
-    address: 103
-    on_state: 
-    - lambda: !lambda |-
-        id(nilan_bypass_state).publish_state(false);
+
     
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Air heat circulation pump"
-    id: nilan_air_heat_circulation_pump
-    register_type: holding
-    address: 104
+
     
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller

@@ -1,0 +1,7 @@
+binary_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "External radiator heat"
+    id: nilan_external_radiator_heat
+    register_type: holding
+    address: 122
