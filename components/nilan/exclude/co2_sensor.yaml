@@ -5,3 +5,6 @@ number:
   - id: !remove nilan_co2_high_vent_step
   - id: !remove nilan_co2_limit_normal_ventilation
   - id: !remove nilan_co2_limit_high_ventilation
+
+text_sensor:
+  - id: !remove nilan_aqi_co2

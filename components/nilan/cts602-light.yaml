@@ -159,7 +159,7 @@ button:
 text_sensor:
   - platform: template
     name: "Air Quality Index CO2 (AQI)"
-    id: aqi_co2
+    id: nilan_aqi_co2
     icon: mdi:air-filter    
   - platform: template
     name: "Alarm 1 timestamp"

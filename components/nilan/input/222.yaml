@@ -10,7 +10,7 @@ sensor:
     address: 222
     on_value: 
       - lambda: !lambda |-
-          id(aqi_co2).publish_state( (x < 400) ? "Excellent" : 
+          id(nilan_aqi_co2).publish_state( (x < 400) ? "Excellent" : 
                                       (x < 1000) ? "Fine" : 
                                       (x < 1500) ? "Moderate" :
                                       (x < 2000) ? "Poor" :
