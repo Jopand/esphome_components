@@ -1,0 +1,10 @@
+binary_sensor:
+  - id: !remove nilan_damper_closed
+  - id: !remove nilan_damper_opened
+
+select:
+  - id: !remove nilan_weekly_air_damper_position_self_test
+
+text_sensor:
+  - id: !remove nilan_last_air_damper_test_day
+  - id: !remove nilan_actual_air_damper_test_state

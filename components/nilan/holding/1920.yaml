@@ -2,7 +2,7 @@ number:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
     name: "CO2 high vent step"
-    id: co2_high_vent_step
+    id: nilan_co2_high_vent_step
     min_value: 0.0
     max_value: 4.0
     step: 1.0

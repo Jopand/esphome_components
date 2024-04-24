@@ -2,7 +2,7 @@ number:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
     name: "CO2 limit normal ventilation"
-    id: co2_limit_normal_ventilation
+    id: nilan_co2_limit_normal_ventilation
     min_value: 400
     max_value: 750
     step: 1.0
