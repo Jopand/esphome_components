@@ -1,7 +1,7 @@
 text_sensor:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
-    name: "Last test day"
+    name: "Last air damper position test day"
     id: nilan_last_test_day
     register_type: holding
     address: 1103

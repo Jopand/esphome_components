@@ -1,7 +1,7 @@
 select:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
-    name: "Weekly air position self test"
+    name: "Weekly air damper position self test"
     id: nilan_weekly_air_damper_position_self_test
     address: 1102
     force_new_range: true
