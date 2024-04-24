@@ -16,6 +16,8 @@ sensor:
       auto month = (alarmDate >> 5) & 0b00001111;
       auto day = alarmDate & 0b00011111;
       
-      return std::to_string(year) + "-" +
+      std::string dateString = std::to_string(year) + "-" +
         ((month < 10) ? "0" : "") + std::to_string(month) + "-" + 
         ((day < 10) ? "0" : "") + std::to_string(day);
+
+      return esphome::optional<std::string>(dateString);
