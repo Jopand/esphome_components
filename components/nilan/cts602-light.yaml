@@ -3,7 +3,7 @@ packages:
     url: https://github.com/Jopand/esphome_components
     ref: split_into_separate_files
     files:
-      - components/nilan/basic.yaml
+      - components/nilan/all.yaml
       ### INPUT REGISTER FILES ###
       - components/nilan/input/0.yaml
       - components/nilan/input/1.yaml
