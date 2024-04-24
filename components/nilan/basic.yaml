@@ -14,7 +14,6 @@ packages:
       - components/nilan/input/208.yaml
       - components/nilan/input/221.yaml
       - components/nilan/input/1001.yaml
-      - components/nilan/input/1002.yaml
       ### HOLDING REGISTER FILES ###
       - components/nilan/holding/200.yaml
       - components/nilan/holding/201.yaml
@@ -49,10 +48,3 @@ climate:
     target_temp_sensor_id: nilan_target_temperature_set
     fan_speed_sensor_id: nilan_ventilation_speed_set
     mode_select_id: nilan_set_operation_mode
-    
-button:
-  - platform: output
-    name: Reset alarm
-    id: nilan_reset_alarm_button
-    output: nilan_reset_alarm
-    duration: 5s

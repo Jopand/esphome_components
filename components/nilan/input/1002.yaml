@@ -2,7 +2,7 @@ text_sensor:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
     name: "Control mode"
-    id: nilan_control_state
+    id: nilan_actual_control_state
     register_type: read
     address: 1002
     lambda: !lambda |-

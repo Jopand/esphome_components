@@ -6,3 +6,10 @@ output:
     use_write_multiple: true
     value_type: U_WORD
     write_lambda: return 255;
+
+button:
+  - platform: output
+    name: Reset alarm
+    id: nilan_reset_alarm_button
+    output: nilan_reset_alarm
+    duration: 5s
