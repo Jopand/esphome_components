@@ -6,23 +6,6 @@ packages:
       - components/nilan/basic.yaml
       ### INPUT REGISTER FILES ###
       ### HOLDING REGISTER FILES ###
-      - components/nilan/holding/300.yaml
-      - components/nilan/holding/301.yaml
-      - components/nilan/holding/302.yaml
-      - components/nilan/holding/303.yaml
-      - components/nilan/holding/304.yaml
-      - components/nilan/holding/305.yaml
-      - components/nilan/holding/500.yaml
-      - components/nilan/holding/600.yaml
-      - components/nilan/holding/602.yaml
-      - components/nilan/holding/603.yaml
-      - components/nilan/holding/604.yaml
-      - components/nilan/holding/605.yaml
-      - components/nilan/holding/1000.yaml
-      - components/nilan/holding/1001.yaml
-      - components/nilan/holding/1005.yaml
-      - components/nilan/holding/1006.yaml
-      - components/nilan/holding/1007.yaml
       - components/nilan/holding/1910.yaml
       - components/nilan/holding/1911.yaml
       - components/nilan/holding/1912.yaml

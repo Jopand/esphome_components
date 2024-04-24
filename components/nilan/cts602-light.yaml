@@ -52,8 +52,34 @@ packages:
       - components/nilan/holding/105.yaml
       - components/nilan/holding/122.yaml
       - components/nilan/holding/126.yaml
-
+      - components/nilan/holding/202.yaml
+      - components/nilan/holding/300.yaml
+      - components/nilan/holding/301.yaml
+      - components/nilan/holding/302.yaml
+      - components/nilan/holding/303.yaml
+      - components/nilan/holding/304.yaml
+      - components/nilan/holding/305.yaml
+      - components/nilan/holding/500.yaml
+      - components/nilan/holding/600.yaml
+      - components/nilan/holding/601.yaml
+      - components/nilan/holding/602.yaml
+      - components/nilan/holding/603.yaml
+      - components/nilan/holding/604.yaml
+      - components/nilan/holding/605.yaml
+      - components/nilan/holding/610.yaml
+      - components/nilan/holding/611.yaml
+      - components/nilan/holding/612.yaml
+      - components/nilan/holding/613.yaml
+      - components/nilan/holding/614.yaml
+      - components/nilan/holding/615.yaml
+      - components/nilan/holding/700.yaml
+      - components/nilan/holding/1000.yaml
+      - components/nilan/holding/1001.yaml
+      - components/nilan/holding/1005.yaml
+      - components/nilan/holding/1006.yaml
+      - components/nilan/holding/1007.yaml
       - components/nilan/holding/1105.yaml
+      
       - components/nilan/holding/1200.yaml
       - components/nilan/holding/1201.yaml
       - components/nilan/holding/1202.yaml

@@ -1,0 +1,21 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Last test day"
+    id: nilan_last_test_day
+    accuracy_decimals: 0
+    register_type: holding
+    address: 1103
+    lambda: |-
+      uint16_t alarmDate = id(nilan_alarm_list_1_date).state;
+            
+      if(!alarmDate) return std::string("");
+      
+      // Parse the date
+      auto year = (alarmDate >> 9) + 1980;
+      auto month = (alarmDate >> 5) & 0b00001111;
+      auto day = alarmDate & 0b00011111;
+      
+      return std::to_string(year) + "-" +
+        ((month < 10) ? "0" : "") + std::to_string(month) + "-" + 
+        ((day < 10) ? "0" : "") + std::to_string(day);

@@ -1,0 +1,18 @@
+select:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Weekly air position self test"
+    id: nilan_weekly_air_damper_position_self_test
+    address: 1102
+    force_new_range: true
+    use_write_multiple: true
+    value_type: U_WORD
+    optionsmap:
+      "Off" : 0
+      "Monday" : 1
+      "Tuesday" : 2
+      "Wednesday" : 3
+      "Thursday" : 4
+      "Friday" : 5
+      "Saturday" : 6
+      "Sunday" : 7

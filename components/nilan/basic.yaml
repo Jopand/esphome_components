@@ -18,7 +18,6 @@ packages:
       - components/nilan/holding/200.yaml
       - components/nilan/holding/201.yaml
       - components/nilan/holding/400.yaml
-      - components/nilan/holding/601.yaml
       - components/nilan/holding/1002.yaml
       - components/nilan/holding/1003.yaml
       - components/nilan/holding/1004.yaml

@@ -1,0 +1,21 @@
+text_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Actual air damper position test state"
+    id: nilan_actual_air_damper_test_state
+    register_type: holding
+    address: 1104
+    lambda: !lambda |-
+      uint16_t int_damper_position = (data[item->offset] << 8) + data[item->offset+1];
+      ESP_LOGD("main","Parsed air damper position: %d", int_damper_position);
+
+      switch(int_damper_position) {
+        case 0: return esphome::optional<std::string>("0 : Off");
+        case 1: return esphome::optional<std::string>("1 : Standby");
+        case 2: return esphome::optional<std::string>("2 : Start");
+        case 3: return esphome::optional<std::string>("3 : Closing");
+        case 4: return esphome::optional<std::string>("4 : Opening");
+        case 5: return esphome::optional<std::string>("5 : OK");
+        case 6: return esphome::optional<std::string>("6 : Error");
+        default: return esphome::optional<std::string>("");
+      }

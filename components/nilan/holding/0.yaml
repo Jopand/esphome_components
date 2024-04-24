@@ -3,6 +3,8 @@ sensor:
     modbus_controller_id: nilan_modbus_controller
     name: "Protocol node address"
     id: nilan_protocol_node_address
+    skip_updates: 60
+    entity_category: diagnostic
     accuracy_decimals: 0
     register_type: holding
     address: 0
