@@ -20,6 +20,7 @@ packages:
       - components/nilan/holding/1701.yaml
     refresh: 0s
 
-sensor:
-- id: !extend nilan_protocol_node_address
-  address: 50
+#According to documentation, the address for cts602 should be 50. But it seems to be 0 as it is with the cts602 light
+#sensor:
+#- id: !extend nilan_protocol_node_address
+#  address: 50
