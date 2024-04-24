@@ -9,7 +9,7 @@ sensor:
     lambda: |-
       uint16_t alarmDate = id(nilan_alarm_list_1_date).state;
             
-      if(!alarmDate) return std::string("");
+      if(!alarmDate) return esphome::optional<std::string>("");
       
       // Parse the date
       auto year = (alarmDate >> 9) + 1980;
