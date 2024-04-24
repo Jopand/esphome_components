@@ -3,7 +3,7 @@ packages:
     url: https://github.com/Jopand/esphome_components
     ref: split_into_separate_files
     files:
-      - components/nilan/all.yaml
+      - components/nilan/cts602-light.yaml
       ### INPUT REGISTER FILES ###
       - components/nilan/input/102.yaml
       - components/nilan/input/104.yaml
