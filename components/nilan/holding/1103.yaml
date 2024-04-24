@@ -1,4 +1,4 @@
-sensor:
+text_sensor:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
     name: "Last test day"
