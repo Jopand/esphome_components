@@ -5,6 +5,8 @@ packages:
     files:
       - components/nilan/cts602-light.yaml
       ### INPUT REGISTER FILES ###
+      - components/nilan/input/4.yaml
+      - components/nilan/input/5.yaml
       - components/nilan/input/102.yaml
       - components/nilan/input/104.yaml
       - components/nilan/input/106.yaml

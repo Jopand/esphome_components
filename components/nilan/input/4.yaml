@@ -1,0 +1,10 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Application Id"
+    id: nilan_application_id
+    skip_updates: 60
+    accuracy_decimals: 0
+    entity_category: diagnostic
+    register_type: read
+    address: 4
