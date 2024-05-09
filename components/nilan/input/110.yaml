@@ -1,8 +1,9 @@
 sensor:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
-    name: "Airflow monitor"
-    id: nilan_airflow_monitor
+    name: "Hot water 3-way valve position"
+    id: nilan_hot_3_way_valve_position
     accuracy_decimals: 0
     register_type: read
-    address: 106
+    address: 110
+    bitmask: 1

@@ -12,6 +12,8 @@ packages:
       - components/nilan/input/106.yaml
       - components/nilan/input/107.yaml
       - components/nilan/input/108.yaml
+      - components/nilan/input/109.yaml
+      - components/nilan/input/110.yaml
       - components/nilan/input/201.yaml
       - components/nilan/input/210.yaml
       - components/nilan/input/215.yaml

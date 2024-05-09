@@ -1,8 +1,8 @@
-binary_sensor:
+sensor:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
     name: "Heating surface frost/overheat"
     id: nilan_heating_surface_frost_overheat
+    accuracy_decimals: 0
     register_type: read
     address: 105
-    bitmask: 1
