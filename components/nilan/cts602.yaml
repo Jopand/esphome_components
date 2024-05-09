@@ -16,6 +16,8 @@ packages:
       - components/nilan/input/110.yaml
       - components/nilan/input/201.yaml
       - components/nilan/input/210.yaml
+      - components/nilan/input/211.yaml
+      - components/nilan/input/212.yaml
       - components/nilan/input/215.yaml
       ### HOLDING REGISTER FILES ###
       - components/nilan/holding/123.yaml
