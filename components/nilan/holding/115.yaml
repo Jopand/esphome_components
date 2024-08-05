@@ -1,0 +1,10 @@
+binary_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Air condenser inactive"
+    id: nilan_air_condenser_inactive
+    register_type: holding
+    address: 115
+    on_state: 
+    - lambda: !lambda |-
+        id(nilan_condenser_state).publish_state(false);    

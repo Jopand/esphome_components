@@ -28,11 +28,20 @@ packages:
       - components/nilan/holding/111.yaml
       - components/nilan/holding/112.yaml
       - components/nilan/holding/113.yaml
+      - components/nilan/holding/114.yaml
+      - components/nilan/holding/115.yaml
+      - components/nilan/holding/116.yaml
+      - components/nilan/holding/117.yaml
       - components/nilan/holding/123.yaml
       - components/nilan/holding/125.yaml
       - components/nilan/holding/1700.yaml
       - components/nilan/holding/1701.yaml
     refresh: 0s
+
+binary_sensor:
+  - platform: template
+    id: nilan_condenser_state
+    name: Condenser state
 
 #According to documentation, the address for cts602 should be 50. But it seems to be 0 as it is with the cts602 light
 #sensor:
