@@ -1,9 +1,9 @@
 binary_sensor:
   - id: !remove nilan_hot_water_boiling
   - id: !remove nilan_hot_3_way_valve_position
+  - id: !remove nilan_hot_water_heater
+  - id: !remove nilan_hot_water_3_way_valve
 
 sensor:
   - id: !remove nilan_top_temp_t11
   - id: !remove nilan_bottom_temp_t12
-  - id: !remove nilan_hot_water_heater
-  - id: !remove nilan_hot_water_3_way_valve
