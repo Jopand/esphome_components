@@ -1,0 +1,7 @@
+binary_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "4-way valve"
+    id: nilan_4_way_valve
+    register_type: holding
+    address: 111
