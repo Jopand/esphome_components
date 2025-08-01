@@ -14,7 +14,7 @@ CONF_MODE = "mode_select_id"
 nilan_ns = cg.esphome_ns.namespace('nilan')
 NilanClimate = nilan_ns.class_('NilanClimate', climate.Climate, cg.Component)
  
-CONFIG_SCHEMA = climate.CLIMATE_SCHEMA.extend({
+CONFIG_SCHEMA = climate.climate_schema(NilanClimate).extend({
     cv.GenerateID(): cv.declare_id(NilanClimate),
     cv.GenerateID(CONF_NILAN_ID): cv.use_id(Nilan),
     cv.Required(CONF_TARGET_TEMP): cv.use_id(number.Number),
