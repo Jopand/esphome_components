@@ -233,7 +233,7 @@ text_sensor:
   - platform: template
     name: "Air filter alarm status"
     lambda: |-
-      if (id(nilan_filter_alarm).state) {
+      if (id(nilan_filter_alarm_from_list).state) {
         return {"Skift filter"};
       } else {
         return {"Filter OK"};
