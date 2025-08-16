@@ -112,8 +112,8 @@ binary_sensor:
     name: Bypass state
     device_class: opening
   - platform: template
-    name: "Air filter alarm"
-    id: nilan_filter_alarm
+    name: "Air filter alarm (from alarm list)"
+    id: nilan_filter_alarm_from_list
     lambda: !lambda |-
       return (id(nilan_alarm_list_1_id).state == 19
         || id(nilan_alarm_list_2_id).state == 19
