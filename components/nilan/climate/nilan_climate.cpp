@@ -109,7 +109,7 @@ climate::ClimateTraits NilanClimate::traits() {
     climate::ClimateMode::CLIMATE_MODE_HEAT_COOL
   });
 
-  traits.add_feature_flags(climate::CLIMATE_FEATURE_CURRENT_TEMPERATURE);
+  traits.add_feature_flags(climate::CLIMATE_SUPPORTS_CURRENT_TEMPERATURE);
 
   // Deprecated but still works in current ESPHome
   traits.set_visual_temperature_step(1);
