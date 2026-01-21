@@ -67,8 +67,9 @@ void NilanClimate::control(const climate::ClimateCall& call) {
   }
 
   // Custom fan mode "1".."4"
-  if (call.get_custom_fan_mode().has_value()) {
-    const std::string &new_custom_fan_mode = *call.get_custom_fan_mode();
+  auto new_custom_fan_mode = call.get_custom_fan_mode();
+  if (!new_custom_fan_mode.empty()) {
+    //const std::string &new_custom_fan_mode = *call.get_custom_fan_mode();
     // Update internal climate state using supported custom fan modes
     const char *found = this->find_custom_fan_mode_(new_custom_fan_mode.c_str());
     
@@ -78,7 +79,7 @@ void NilanClimate::control(const climate::ClimateCall& call) {
     }
 
     // Convert the custom fan mode string to a numeric Nilan fan speed
-    auto optional_nilan_fan_mode = parse_number<float>(new_custom_fan_mode);
+    auto optional_nilan_fan_mode = parse_number<float>(new_custom_fan_mode.str());
     
     if (optional_nilan_fan_mode.has_value()) {
       auto nilan_fan_mode = optional_nilan_fan_mode.value();
