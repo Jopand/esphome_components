@@ -17,7 +17,7 @@ void NilanClimate::setup() {
     this->target_temperature = state;
     publish_state();
   });
-  mode_select_->add_on_state_callback([this](std::string state, size_t index) {
+  mode_select_->add_on_state_callback([this](size_t index) {
     // ESP_LOGD(TAG, "OPERATION MODE CALLBACK: %s", state.c_str());
     nilanmodetext_to_climatemode(index);
     publish_state();
@@ -67,18 +67,19 @@ void NilanClimate::control(const climate::ClimateCall& call) {
   }
 
   // Custom fan mode "1".."4"
-  const char *new_custom_fan_mode = call.get_custom_fan_mode();
-  if (new_custom_fan_mode != nullptr && new_custom_fan_mode[0] != '\0') {
+  if (call.get_custom_fan_mode().has_value()) {
+    const std::string &new_custom_fan_mode = *call.get_custom_fan_mode();
     // Update internal climate state using supported custom fan modes
-    const char *found = this->find_custom_fan_mode_(new_custom_fan_mode);
+    const char *found = this->find_custom_fan_mode_(new_custom_fan_mode.c_str());
+    
     if (found != nullptr) {
       // This will clear primary fan_mode for us
       this->set_custom_fan_mode_(found);
     }
 
     // Convert the custom fan mode string to a numeric Nilan fan speed
-    auto optional_nilan_fan_mode =
-        parse_number<float>(std::string(new_custom_fan_mode));
+    auto optional_nilan_fan_mode = parse_number<float>(new_custom_fan_mode);
+    
     if (optional_nilan_fan_mode.has_value()) {
       auto nilan_fan_mode = optional_nilan_fan_mode.value();
       ESP_LOGD(TAG, "Custom Fan mode set to: %i", static_cast<int>(nilan_fan_mode));
