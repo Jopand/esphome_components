@@ -64,7 +64,7 @@ void NilanClimate::control(const climate::ClimateCall& call) {
     fan_speed_number_->make_call().set_value(0).perform();
   }
 
-  if (call.get_custom_fan_mode() != nullptr)
+  if (call.has_custom_fan_mode())
   {
     auto new_custom_fan_mode = call.get_custom_fan_mode().str();
     this->set_custom_fan_mode_(new_custom_fan_mode.c_str());
