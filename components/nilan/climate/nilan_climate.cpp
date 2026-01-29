@@ -122,7 +122,7 @@ void NilanClimate::nilanfanspeed_to_fanmode(const int state)
   case 2:
   case 3:
   case 4:
-    this->set_custom_fan_mode_(esphome::to_string(state).c_str())
+    this->set_custom_fan_mode_(esphome::to_string(state).c_str());
     break;
   case 0:
   default: 
