@@ -1,10 +1,10 @@
 sensor:
-  - id: !remove nilan_co2_level
+  - id: !remove nilan_co2_level #222
 
 number:
-  - id: !remove nilan_co2_high_vent_step
-  - id: !remove nilan_co2_limit_normal_ventilation
-  - id: !remove nilan_co2_limit_high_ventilation
+  - id: !remove nilan_co2_high_vent_step #1920
+  - id: !remove nilan_co2_limit_normal_ventilation #1921
+  - id: !remove nilan_co2_limit_high_ventilation #1922
 
 text_sensor:
   - id: !remove nilan_aqi_co2

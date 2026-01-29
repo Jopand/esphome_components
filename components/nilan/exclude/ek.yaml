@@ -1,0 +1,10 @@
+binary_sensor:
+  - id: !remove nilan_ek_circulation_pump #118
+  - id: !remove nilan_ek_heater_relay_1 #119
+  - id: !remove nilan_ek_heater_relay_2 #120
+  - id: !remove nilan_ek_heater_relay_3 #121
+
+sensor:
+  - id: !remove nilan_ek_return_temperature #213
+  - id: !remove nilan_ek_supply_temperature #214
+  
