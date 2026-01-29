@@ -1,7 +1,7 @@
 switch:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
-    name: "On/Off state"
+    name: "On-Off state"
     id: nilan_on_off_state
     register_type: holding
     bitmask: 1
