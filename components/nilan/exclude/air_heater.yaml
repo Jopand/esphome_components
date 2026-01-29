@@ -1,0 +1,9 @@
+binary_sensor:
+  - id: !remove nilan_air_heat_circulation_pump #104
+  - id: !remove nilan_air_heat_selected #105
+  - id: !remove nilan_air_heater_relay_1 #106
+  - id: !remove nilan_air_heater_relay_2 #107
+  - id: !remove nilan_air_heater_relay_3 #108
+
+sensor:
+  - id: !remove nilan_air_heater_capacity #202
