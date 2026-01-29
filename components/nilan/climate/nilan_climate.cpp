@@ -67,7 +67,7 @@ void NilanClimate::control(const climate::ClimateCall& call) {
   if (call.get_custom_fan_mode() != nullptr)
   {
     auto new_custom_fan_mode = call.get_custom_fan_mode().str();
-    this->set_custom_fan_mode_(new_custom_fan_mode);
+    this->set_custom_fan_mode_(new_custom_fan_mode.c_str());
     fan_mode.reset();
     auto optional_nilan_fan_mode = parse_number<float>(new_custom_fan_mode.c_str());
     if(optional_nilan_fan_mode.has_value())
@@ -122,7 +122,7 @@ void NilanClimate::nilanfanspeed_to_fanmode(const int state)
   case 2:
   case 3:
   case 4:
-    this->custom_fan_mode = esphome::to_string(state);
+    this->set_custom_fan_mode_(esphome::to_string(state).c_str())
     break;
   case 0:
   default: 
