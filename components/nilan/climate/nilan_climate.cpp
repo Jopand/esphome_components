@@ -17,7 +17,7 @@ void NilanClimate::setup() {
     this->target_temperature = state;
     publish_state();
   });
-  mode_select_->add_on_state_callback([this](std::string state, size_t index) {
+  mode_select_->add_on_state_callback([this](size_t index) {
     // ESP_LOGD(TAG, "OPERATION MODE CALLBACK: %s", state.c_str());
     nilanmodetext_to_climatemode(index);
     publish_state();
@@ -56,20 +56,20 @@ void NilanClimate::control(const climate::ClimateCall& call) {
 
   if (call.get_fan_mode().has_value())
   {
-    // The only valid fan mode that is not custom is "OFF"
+    // The only valid fan mode that is not custom us "OFF"
     auto new_fan_mode = *call.get_fan_mode();
-    this->set_custom_fan_mode_("");
+    custom_fan_mode.reset();
 
     ESP_LOGD(TAG, "Custom Fan mode set to: 0");
     fan_speed_number_->make_call().set_value(0).perform();
   }
 
-  if (call.get_custom_fan_mode() != nullptr)
+  if (call.get_custom_fan_mode().has_value())
   {
-    const char *new_custom_fan_mode = call.get_custom_fan_mode();
-    this->set_custom_fan_mode_(new_custom_fan_mode);
-    this->fan_mode.reset();
-    auto optional_nilan_fan_mode = parse_number<float>(new_custom_fan_mode);
+    auto new_custom_fan_mode = call.get_custom_fan_mode().str();
+    custom_fan_mode = new_custom_fan_mode;
+    fan_mode.reset();
+    auto optional_nilan_fan_mode = parse_number<float>(new_custom_fan_mode.c_str());
     if(optional_nilan_fan_mode.has_value())
     {
       auto nilan_fan_mode = optional_nilan_fan_mode.value();
@@ -100,7 +100,7 @@ climate::ClimateTraits NilanClimate::traits() {
     climate::ClimateMode::CLIMATE_MODE_HEAT_COOL
    });
 
-  traits.set_supports_current_temperature(true);
+  traits.add_feature_flags(esphome::climate::CLIMATE_SUPPORTS_CURRENT_TEMPERATURE);
   traits.set_visual_temperature_step(1);
   traits.set_visual_min_temperature(5);
   traits.set_visual_max_temperature(30);
@@ -114,7 +114,7 @@ void NilanClimate::dump_config() {
 
 void NilanClimate::nilanfanspeed_to_fanmode(const int state)
 {
-  this->set_custom_fan_mode_("");
+  this->custom_fan_mode.reset();
   this->fan_mode.reset();
 
   switch (state) {
@@ -122,7 +122,7 @@ void NilanClimate::nilanfanspeed_to_fanmode(const int state)
   case 2:
   case 3:
   case 4:
-    this->set_custom_fan_mode_(esphome::to_string(state).c_str());
+    this->custom_fan_mode = esphome::to_string(state);
     break;
   case 0:
   default: 
