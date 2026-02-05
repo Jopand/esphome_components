@@ -5,6 +5,7 @@ binary_sensor:
     id: nilan_air_condenser_active
     register_type: holding
     address: 114
+    internal: true
     on_state: 
     - lambda: !lambda |-
         id(nilan_condenser_state).publish_state(true);    
