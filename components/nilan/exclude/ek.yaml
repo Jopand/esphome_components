@@ -3,6 +3,7 @@ binary_sensor:
   - id: !remove nilan_ek_heater_relay_1 #119
   - id: !remove nilan_ek_heater_relay_2 #120
   - id: !remove nilan_ek_heater_relay_3 #121
+  - id: !remove nilan_external_radiator_heat #122
 
 sensor:
   - id: !remove nilan_ek_return_temperature #213
