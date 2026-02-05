@@ -1,0 +1,17 @@
+text_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "HotWater type"
+    id: nilan_hotwater_type
+    register_type: read
+    address: 1700
+    lambda: !lambda |-
+      uint16_t int_mode = (data[item->offset] << 8) + data[item->offset+1];
+      ESP_LOGD("main","Parsed operation mode int : %d", int_mode);
+
+      switch (int_mode) {
+        case 0: return esphome::optional<std::string>("None");
+        case 1: return esphome::optional<std::string>("Only hotware (VGU)");
+        case 2: return esphome::optional<std::string>("With ventilation (VP)");
+        case 3: return esphome::optional<std::string>("With central heating (VGU180)");
+      }
