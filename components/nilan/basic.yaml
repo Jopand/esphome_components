@@ -220,7 +220,7 @@ text_sensor:
 climate:
   - platform: nilan
     name: Nilan
-    current_temp_sensor_id: nilan_exhaust_temp_t3
+    current_temp_sensor_id: nilan_extern_temp_t10
     target_temp_sensor_id: nilan_target_temperature_set
     fan_speed_sensor_id: nilan_ventilation_speed_set
     mode_select_id: nilan_set_operation_mode
