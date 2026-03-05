@@ -1,6 +1,6 @@
 packages:
   remote_package:
-    url: https://github.com/Jopand/esphome_components
+    url: https://github.com/tsvane/esphome_components
     ref: main
     files: [components/nilan/all.yaml]
     refresh: 0s
@@ -121,7 +121,7 @@ binary_sensor:
 
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
-    name: "Heating surface frost/overheat"
+    name: "Heating surface frost⁄overheat"
     id: nilan_heating_surface_frost_oerheat
     register_type: read
     address: 105

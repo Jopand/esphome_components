@@ -1,5 +1,5 @@
 external_components:
-  - source: github://Jopand/esphome_components@main
+  - source: github://tsvane/esphome_components@main
     refresh: 0s
     
 nilan:
