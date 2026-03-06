@@ -1,0 +1,974 @@
+external_components:
+  - source: github://tsvane/esphome_components@main
+    refresh: 0s
+
+nilan:
+
+
+#       ███████ ███████ ███    ██ ███████  ██████  ██████  ███████ 
+#       ██      ██      ████   ██ ██      ██    ██ ██   ██ ██      
+#       ███████ █████   ██ ██  ██ ███████ ██    ██ ██████  ███████ 
+#            ██ ██      ██  ██ ██      ██ ██    ██ ██   ██      ██ 
+#       ███████ ███████ ██   ████ ███████  ██████  ██   ██ ███████ 
+
+
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "App Version"
+    id: app_version
+    skip_updates: 60
+    register_type: read
+    register_count: 3
+    response_size: 6
+    address: 1
+    entity_category: diagnostic
+    lambda: !lambda |-
+      float bus_version = nilan_bus_version->get_state();
+      std::string output;
+      
+      if (bus_version == 8) {
+        output = data[item->offset+1];
+        output += data[item->offset+0];
+        output += data[item->offset+3];
+        output += data[item->offset+2];
+        output += data[item->offset+5]; 
+        output += data[item->offset+4];
+      } else {  
+        output = data[item->offset+0];
+        output += data[item->offset+1];
+        output += '.';
+        output += data[item->offset+2];
+        output += data[item->offset+3];
+        output += '.';
+        output += data[item->offset+4];
+        output += data[item->offset+5];
+      }
+ 
+      ESP_LOGD("main","Parsed SW version: %s", output.c_str()); 
+      return output;
+
+# Input.UserFunc 100 User function
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "User function"
+    id: user_function
+    register_type: read
+    address: 100
+
+# Input.AirFilter 101 Air filter alarm
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Air filter alarm"
+    id: air_filter_alarm
+    register_type: read
+    address: 101
+
+
+#        █████  ██████  ██████  ██████  ███████ ███████ ███████        ██████   ██████   ██████  
+#       ██   ██ ██   ██ ██   ██ ██   ██ ██      ██      ██      ██          ██ ██  ████ ██  ████ 
+#       ███████ ██   ██ ██   ██ ██████  █████   ███████ ███████         █████  ██ ██ ██ ██ ██ ██ 
+#       ██   ██ ██   ██ ██   ██ ██   ██ ██           ██      ██ ██     ██      ████  ██ ████  ██ 
+#       ██   ██ ██████  ██████  ██   ██ ███████ ███████ ███████        ███████  ██████   ██████  
+
+
+# Input.T0_Controller 200 100 °C Controller board temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T0 Controller"
+    id: t0_controller
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 200
+    filters:
+      - multiply: 0.01
+# Input.T1_Intake 201 100 °C Fresh air intake temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T1 Intake"
+    id: t1_intake
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 201
+    filters:
+      - multiply: 0.01
+# Input.T2_Inlet 202 100 °C Inlet temperature (before heater)
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T2 Inlet"
+    id: t2_inlet
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 202
+    filters:
+      - multiply: 0.01
+# Input.T3_Exhaust 203 100 °C Room exhaust temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T3 Exhaust"
+    id: t3_exhaust
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 203
+    filters:
+      - multiply: 0.01
+# Input.T4_Outlet 204 100 °C Outlet temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T4 Outlet"
+    id: t4_outlet
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 204
+    filters:
+      - multiply: 0.01
+# Input.T5_Cond 205 100 °C Condenser temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T5 Condenser"
+    id: t5_condenser
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 205
+    filters:
+      - multiply: 0.01
+# Input.T6_Evap 206 100 °C Evaporator temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T6 Evaporator"
+    id: t6_evaporator
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 206
+    filters:
+      - multiply: 0.01
+# Input.T7_Inlet 207 100 °C Inlet temperature (after heater)
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T7 Inlet"
+    id: t7_inlet
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 207
+    filters:
+      - multiply: 0.01
+# Input.T8_Outdoor 208 100 °C Outdoor temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T8 Outdoor"
+    id: t8_outdoor
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 208
+    filters:
+      - multiply: 0.01
+# Input.T9_Heater 209 100 °C Heating surface temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T9 Heater"
+    id: t9_heater
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 209
+    filters:
+      - multiply: 0.01
+# Input.T10_Extern 210 100 °C External room temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T10 External"
+    id: t10_external
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 210
+    filters:
+      - multiply: 0.01
+# Input.T11_Top 211 100 °C Hot water top temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T11 Top"
+    id: t11_top
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 211
+    filters:
+      - multiply: 0.01
+# Input.T12_Bottom 212 100 °C Hot water bottom temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T12 Bottom"
+    id: t12_bottom
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 212
+    filters:
+      - multiply: 0.01
+# Input.T13_Return 213 100 °C EK return temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T13 Return"
+    id: t13_return
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 213
+    filters:
+      - multiply: 0.01
+# Input.T14_Supply 214 100 °C EK supply temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T14 Supply"
+    id: t14_supply
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 214
+    filters:
+      - multiply: 0.01
+# Input.T15_Room 215 100 °C User panel room temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T15 Room"
+    id: t15_room
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 215
+    filters:
+      - multiply: 0.01
+# Input.T16 216 100 °C AUX temperature (Hotwater anode)
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T16 AUX"
+    id: t16_aux
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 216
+    filters:
+      - multiply: 0.01
+# Input.T17_PreHeat 217 100 °C Preheater or earth tube air intake temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T17 PreHeat"
+    id: t17_preheat
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 217
+    filters:
+      - multiply: 0.01
+# Input.T18_PresPibe 218 100 °C Pressure pibe temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "T18 PresPibe"
+    id: t18_prespibe
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 218
+    filters:
+      - multiply: 0.01
+# Input.pSuc 219 bar Suction pressure
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "pSuc"
+    id: p_suc
+    unit_of_measurement: 'bar'
+    accuracy_decimals: 2
+    register_type: read
+    address: 219
+    filters:
+      - multiply: 0.01
+# Input.pDis 220 bar Dischage pressure
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "pDis"
+    id: p_dis
+    unit_of_measurement: 'bar'
+    accuracy_decimals: 2
+    register_type: read
+    address: 220
+    filters:
+      - multiply: 0.01
+# AirTemp.TempInletSet 1201 100 °C Inlet temperature request (T7 setpoint)
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Inlet Temperature Setpoint"
+    id: inlet_temp_setpoint
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: holding
+    address: 1201
+    filters:
+      - multiply: 0.01
+# AirTemp.TempControl 1202 100 °C Actual value for controlled temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Controlled Temperature"
+    id: controlled_temp
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 1202
+    filters:
+      - multiply: 0.01
+# AirTemp.TempRoom 1203 100 °C Actual room temperature (T15 or T10)
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Room Temperature"
+    id: room_temp
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    address: 1203
+    filters:
+      - multiply: 0.01
+# AirTemp.EffPct 1204 100 % Passive heat exchanger efficiency calculation
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Heat Exchanger Efficiency"
+    id: heat_exchanger_efficiency
+    unit_of_measurement: '%'
+    accuracy_decimals: 1
+    register_type: read
+    address: 1204
+    filters:
+      - multiply: 0.01
+# AirTemp.CapSet 1205 100 % Requested capacity
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Requested Capacity"
+    id: requested_capacity
+    unit_of_measurement: '%'
+    accuracy_decimals: 1
+    register_type: holding
+    address: 1205
+    filters:
+      - multiply: 0.01
+# AirTemp.CapAct 1206 100 % Actual capacity
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Actual Capacity"
+    id: actual_capacity
+    unit_of_measurement: '%'
+    accuracy_decimals: 1
+    register_type: read
+    address: 1206
+    filters:
+      - multiply: 0.01
+
+#        █████  ██████  ██████  ██████  ███████ ███████ ███████        ██   ██  ██████   ██████  
+#       ██   ██ ██   ██ ██   ██ ██   ██ ██      ██      ██      ██     ██   ██ ██  ████ ██  ████ 
+#       ███████ ██   ██ ██   ██ ██████  █████   ███████ ███████        ███████ ██ ██ ██ ██ ██ ██ 
+#       ██   ██ ██   ██ ██   ██ ██   ██ ██           ██      ██ ██          ██ ████  ██ ████  ██ 
+#       ██   ██ ██████  ██████  ██   ██ ███████ ███████ ███████             ██  ██████   ██████  
+
+
+# Alarm.Status 400 Alarm state bit mask, 0x80 : Active alarm(s) are present, 0x0F : Total number of alarms
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Alarm Status"
+    id: alarm_status
+    accuracy_decimals: 0
+    register_type: read
+    address: 400
+# Alarm.List_1_ID 401 Alarm 1 - Code, 0x80 : (reserved future use), 0x7F : Display code 1..99
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Alarm List 1 ID"
+    id: alarm_list_1_id
+    accuracy_decimals: 0
+    register_type: read
+    address: 401
+# Alarm.List_1_Date 402 Alarm 1 - Date, Bit word packed in DOS date format, Year 0 = 1980, 15 8 7 0, YYYYYYYM MMMDDDDD
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    internal: true
+    id: alarm_list_1_date
+    accuracy_decimals: 0
+    register_type: read
+    address: 402
+# Alarm.List_1_Time 403 Alarm 1 - Time, Bit word packed in DOS time format, Seconds are in scale 2 (0..29 = 0..58 seconds), 15 8 7 0, HHHHHMMM MMMSSSSS
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    internal: true
+    id: alarm_list_1_time
+    accuracy_decimals: 0
+    register_type: read
+    address: 403
+# Alarm.List_2_ID 404 Alarm 2 - Code
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Alarm List 2 ID"
+    id: alarm_list_2_id
+    accuracy_decimals: 0
+    register_type: read
+    address: 404
+# Alarm.List_2_Date 405 Alarm 2 - Date
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Alarm List 2 Date"
+    internal: true
+    id: alarm_list_2_date
+    accuracy_decimals: 0
+    register_type: read
+    address: 405
+# Alarm.List_2_Time 406 Alarm 2 - Time
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Alarm List 2 Time"
+    internal: true
+    id: alarm_list_2_time
+    accuracy_decimals: 0
+    register_type: read
+    address: 406
+# Alarm.List_3_ID 407 Alarm 3 - Code
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Alarm List 3 ID"
+    id: alarm_list_3_id
+    accuracy_decimals: 0
+    register_type: read
+    address: 407
+# Alarm.List_3_Date 408 Alarm 3 - Date
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Alarm List 3 Date"
+    internal: true
+    id: alarm_list_3_date
+    accuracy_decimals: 0
+    register_type: read
+    address: 408
+# Alarm.List_3_Time 409 Alarm 3 - Time
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Alarm List 3 Time"
+    internal: true
+    id: alarm_list_3_time
+    accuracy_decimals: 0
+    register_type: read
+    address: 409
+
+
+#        █████  ██████  ██████  ██████  ███████ ███████ ███████         ██  ██████   ██████   ██████  
+#       ██   ██ ██   ██ ██   ██ ██   ██ ██      ██      ██      ██     ███ ██  ████ ██  ████ ██  ████ 
+#       ███████ ██   ██ ██   ██ ██████  █████   ███████ ███████         ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ 
+#       ██   ██ ██   ██ ██   ██ ██   ██ ██           ██      ██ ██      ██ ████  ██ ████  ██ ████  ██ 
+#       ██   ██ ██████  ██████  ██   ██ ███████ ███████ ███████         ██  ██████   ██████   ██████  
+
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Actual Power State"
+    id: actual_power_state
+    accuracy_decimals: 0
+    register_type: read
+    address: 1000
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Fan Actual Step"
+    id: fan_actual_step
+    accuracy_decimals: 0
+    register_type: read
+    address: 1100
+# AirFlow.InletAct 1101 Step Actual inlet fan speed step
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Fan Actual Step Inlet"
+    id: fan_actual_step_inlet
+    accuracy_decimals: 0
+    register_type: read
+    address: 1101
+# AirFlow.ExhaustAct 1102 Step Actual exhaust fan speed step
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Fan Actual Step Exhaust"
+    id: fan_actual_step_exhaust
+    accuracy_decimals: 0
+    register_type: read
+    address: 1102
+# AirFlow.SinceFiltDay 1103 Days Days since last air filter change alarm
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Filter Last Change"
+    id: filter_last_change
+    unit_of_measurement: 'days'
+    accuracy_decimals: 0
+    register_type: read
+    address: 1103
+# AirFlow.ToFiltDay 1104 Days Days to next air filter change alarm
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Filter Next Change"
+    id: filter_next_change
+    unit_of_measurement: 'days'
+    accuracy_decimals: 0
+    register_type: read
+    address: 1104
+# DPT.AirFlow1 2201 m3/h Calculated air flow 1
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Air Flow 1"
+    id: air_flow_1
+    unit_of_measurement: 'm³/h'
+    accuracy_decimals: 0
+    register_type: read
+    address: 2201
+# DPT.AirFlow2 2202 m3/h Calculated air flow 2
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Air Flow 2"
+    id: air_flow_2
+    unit_of_measurement: 'm³/h'
+    accuracy_decimals: 0
+    register_type: read
+    address: 2202
+# DPT.Pressure1 2221 Pa Calculated air pressure 1
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Air Pressure 1"
+    id: air_pressure_1
+    unit_of_measurement: 'Pa'
+    accuracy_decimals: 0
+    register_type: read
+    address: 2221
+# DPT.Pressure2 2222 Pa Calculated air pressure 2
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Air Pressure 2"
+    id: air_pressure_2
+    unit_of_measurement: 'Pa'
+    accuracy_decimals: 0
+    register_type: read
+    address: 2222
+
+#     ████████ ███████ ██   ██ ████████     ███████ ███████ ███    ██ ███████  ██████  ██████  ███████ 
+#        ██    ██       ██ ██     ██        ██      ██      ████   ██ ██      ██    ██ ██   ██ ██      
+#        ██    █████     ███      ██        ███████ █████   ██ ██  ██ ███████ ██    ██ ██████  ███████ 
+#        ██    ██       ██ ██     ██             ██ ██      ██  ██ ██      ██ ██    ██ ██   ██      ██ 
+#        ██    ███████ ██   ██    ██        ███████ ███████ ██   ████ ███████  ██████  ██   ██ ███████ 
+
+
+text_sensor:
+  - platform: template
+    name: "Alarm 1 DateTime"
+    id: alarm_list_1_datetime
+    lambda: |-
+      uint16_t alarmDate = id(alarm_list_1_date).state;
+      uint16_t alarmTime = id(alarm_list_1_time).state;
+
+      if(!alarmDate ||!alarmTime) return std::string("");
+      
+      // Parse the date
+      auto year = (alarmDate >> 9) + 1980;
+      auto month = (alarmDate >> 5) & 0b00001111;
+      auto day = alarmDate & 0b00011111;
+      auto hour = (alarmTime >> 11) & 0b00011111;
+      auto minute = (alarmTime >> 5) & 0b0011111;
+      auto second = (alarmTime & 0b00011111) * 2;
+      
+      return std::to_string(year) + "-" +
+        ((month < 10) ? "0" : "") + std::to_string(month) + "-" + 
+        ((day < 10) ? "0" : "") + std::to_string(day) + " " +
+        ((hour < 10) ? "0" : "") + std::to_string(hour) + ":" +
+        ((minute < 10) ? "0" : "") + std::to_string(minute) + ":" +
+        ((second < 10) ? "0" : "") + std::to_string(second);
+  - platform: template
+    name: "Alarm 2 DateTime"
+    id: alarm_list_2_datetime
+    lambda: |-
+      uint16_t alarmDate = id(alarm_list_2_date).state;
+      uint16_t alarmTime = id(alarm_list_2_time).state;
+
+      if(!alarmDate ||!alarmTime) return std::string("");
+      
+      // Parse the date
+      auto year = (alarmDate >> 9) + 1980;
+      auto month = (alarmDate >> 5) & 0b00001111;
+      auto day = alarmDate & 0b00011111;
+      auto hour = (alarmTime >> 11) & 0b00011111;
+      auto minute = (alarmTime >> 5) & 0b0011111;
+      auto second = (alarmTime & 0b00011111) * 2;
+      
+      return std::to_string(year) + "-" +
+        ((month < 10) ? "0" : "") + std::to_string(month) + "-" + 
+        ((day < 10) ? "0" : "") + std::to_string(day) + " " +
+        ((hour < 10) ? "0" : "") + std::to_string(hour) + ":" +
+        ((minute < 10) ? "0" : "") + std::to_string(minute) + ":" +
+        ((second < 10) ? "0" : "") + std::to_string(second);
+  - platform: template
+    name: "Alarm 3 DateTime"
+    id: alarm_list_3_datetime
+    lambda: |-
+      uint16_t alarmDate = id(alarm_list_3_date).state;
+      uint16_t alarmTime = id(alarm_list_3_time).state;
+
+      if(!alarmDate ||!alarmTime) return std::string("");
+      
+      // Parse the date
+      auto year = (alarmDate >> 9) + 1980;
+      auto month = (alarmDate >> 5) & 0b00001111;
+      auto day = alarmDate & 0b00011111;
+      auto hour = (alarmTime >> 11) & 0b00011111;
+      auto minute = (alarmTime >> 5) & 0b0011111;
+      auto second = (alarmTime & 0b00011111) * 2;
+      
+      return std::to_string(year) + "-" +
+        ((month < 10) ? "0" : "") + std::to_string(month) + "-" + 
+        ((day < 10) ? "0" : "") + std::to_string(day) + " " +
+        ((hour < 10) ? "0" : "") + std::to_string(hour) + ":" +
+        ((minute < 10) ? "0" : "") + std::to_string(minute) + ":" +
+        ((second < 10) ? "0" : "") + std::to_string(second);
+
+
+#        █████  ██████  ██████  ██████  ███████ ███████ ███████        ██████   ██████   ██████  
+#       ██   ██ ██   ██ ██   ██ ██   ██ ██      ██      ██      ██          ██ ██  ████ ██  ████ 
+#       ███████ ██   ██ ██   ██ ██████  █████   ███████ ███████         █████  ██ ██ ██ ██ ██ ██ 
+#       ██   ██ ██   ██ ██   ██ ██   ██ ██           ██      ██ ██     ██      ████  ██ ████  ██ 
+#       ██   ██ ██████  ██████  ██   ██ ███████ ███████ ███████        ███████  ██████   ██████  
+
+
+# AirQual.RH 221 100 % Humidity sensor value
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Humidity"
+    id: humidity
+    unit_of_measurement: '%'
+    accuracy_decimals: 1
+    device_class: humidity
+    register_type: read
+    address: 221
+    filters:
+      - multiply: 0.01
+    on_value: 
+      - lambda: !lambda |-
+          id(aqi_humidity).publish_state( (x < 35) ? "Too Dry" : 
+                                          (x < 65) ? "Perfect" : 
+                                          "Too Humid");
+# AirQual.CO2 222 ppm Carbon dioxide sensor value
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "CO2"
+    id: co2_level
+    unit_of_measurement: "ppm"
+    icon: "mdi:molecule-co2"
+    accuracy_decimals: 0
+    register_type: read
+    address: 222
+    on_value: 
+      - lambda: !lambda |-
+          id(aqi_co2).publish_state( (x < 400) ? "Excellent" : 
+                                      (x < 1000) ? "Fine" : 
+                                      (x < 1500) ? "Moderate" :
+                                      (x < 2000) ? "Poor" :
+                                      (x < 5000) ? "Very Poor" :
+                                      "Severe");
+
+
+
+#        █████  ██████  ██████  ██████  ███████ ███████ ███████         ██  ██████   ██████   ██████  
+#       ██   ██ ██   ██ ██   ██ ██   ██ ██      ██      ██      ██     ███ ██  ████ ██  ████ ██  ████ 
+#       ███████ ██   ██ ██   ██ ██████  █████   ███████ ███████         ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ 
+#       ██   ██ ██   ██ ██   ██ ██   ██ ██           ██      ██ ██      ██ ████  ██ ████  ██ ████  ██ 
+#       ██   ██ ██████  ██████  ██   ██ ███████ ███████ ███████         ██  ██████   ██████   ██████  
+
+
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Operation Mode"
+    id: operation_mode
+    register_type: read
+    address: 1001
+    lambda: !lambda |-
+      uint16_t int_mode = (data[item->offset] << 8) + data[item->offset+1];
+      ESP_LOGD("main","Parsed operation mode int : %d", int_mode);
+      std::string mode_str;
+      switch (int_mode) {
+        case 0: mode_str = "Off"; break;
+        case 1: mode_str = "Heat"; break;
+        case 2: mode_str = "Cool"; break;
+        case 3: mode_str = "Auto"; break;
+        case 4: mode_str = "Service"; break;
+        default: mode_str = "Unknown"; break;
+      }
+      return mode_str;
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Control Mode"
+    id: control_state
+    register_type: read
+    address: 1002
+    lambda: !lambda |-
+      uint16_t int_mode = (data[item->offset] << 8) + data[item->offset+1];
+      ESP_LOGD("main","Parsed operation mode int : %d", int_mode);
+      std::string mode_str;
+      switch (int_mode) {
+        case 0:  mode_str = "Off"; break;
+        case 1:  mode_str = "Shift"; break;
+        case 2:  mode_str = "Stop"; break;
+        case 3:  mode_str = "Start"; break;
+        case 4:  mode_str = "Standby"; break;
+        case 5:  mode_str = "Ventilation stop"; break;
+        case 6:  mode_str = "Ventilation"; break;
+        case 7:  mode_str = "Heating"; break;
+        case 8:  mode_str = "Cooling"; break;
+        case 9:  mode_str = "Hot water"; break;
+        case 10: mode_str = "Legionella"; break;
+        case 11: mode_str = "Cooling + hot water"; break;
+        case 12: mode_str = "Central heating"; break;
+        case 13: mode_str = "Defrost"; break;
+        case 14: mode_str = "Frost secure"; break;
+        case 15: mode_str = "Service"; break;
+        case 16: mode_str = "Alarm"; break;
+        default: mode_str = "Unknown"; break;
+      }
+      return mode_str;
+# Compressor.Type 1500 0..2 0: None, 1: On/Off, 2: Modulated hotgas valve
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Compressor Type"
+    id: compressor_type
+    register_type: read
+    address: 1500
+    lambda: !lambda |-
+      uint16_t int_type = (data[item->offset] << 8) + data[item->offset+1];
+      ESP_LOGD("main","Parsed compressor type int : %d", int_type);
+      std::string type_str;
+      switch (int_type) {
+        case 0: type_str = "None"; break;
+        case 1: type_str = "On/Off"; break;
+        case 2: type_str = "Modulated hotgas valve"; break;
+        default: type_str = "Unknown"; break;
+      }
+      return type_str;
+# HotWater.Type 1700 0..3 0: None, 1:Only hotware (VGU), 2:With ventilation (VP), 3:With central heating (VGU180)
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Hot Water Type"
+    id: hot_water_type
+    register_type: read
+    address: 1700
+    lambda: !lambda |-
+      uint16_t int_type = (data[item->offset] << 8) + data[item->offset+1];
+      ESP_LOGD("main","Parsed hot water type int : %d", int_type);
+      std::string type_str;
+      switch (int_type) {
+        case 0: type_str = "None"; break;
+        case 1: type_str = "Only hot water (VGU)"; break;
+        case 2: type_str = "With ventilation (VP)"; break;
+        case 3: type_str = "With central heating (VGU180)"; break;
+        default: type_str = "Unknown"; break;
+      }
+      return type_str;
+# HotWater.AnodeState 1701 0..3 0=OFF, 1=OK, 2=SERVICE, 3=ERROR
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Hot Water Anode State"
+    id: hot_water_anode_state
+    register_type: read
+    address: 1701
+    lambda: !lambda |-
+      uint16_t int_state = (data[item->offset] << 8) + data[item->offset+1];
+      ESP_LOGD("main","Parsed hot water anode state int : %d", int_state);
+      std::string state_str;
+      switch (int_state) {
+        case 0: state_str = "OFF"; break;
+        case 1: state_str = "OK"; break;
+        case 2: state_str = "SERVICE"; break;
+        case 3: state_str = "ERROR"; break;
+        default: state_str = "Unknown"; break;
+      }
+      return state_str;
+
+
+
+
+#       ██████  ██ ███    ██  █████  ██████  ██    ██         ███████ ███████ ███    ██ ███████  ██████  ██████  
+#       ██   ██ ██ ████   ██ ██   ██ ██   ██  ██  ██          ██      ██      ████   ██ ██      ██    ██ ██   ██ 
+#       ██████  ██ ██ ██  ██ ███████ ██████    ████           ███████ █████   ██ ██  ██ ███████ ██    ██ ██████  
+#       ██   ██ ██ ██  ██ ██ ██   ██ ██   ██    ██                 ██ ██      ██  ██ ██      ██ ██    ██ ██   ██ 
+#       ██████  ██ ██   ████ ██   ██ ██   ██    ██    ███████ ███████ ███████ ██   ████ ███████  ██████  ██   ██ 
+
+
+binary_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Actual Mode"
+    id: actual_mode
+    register_type: read
+    address: 1000
+# AirTemp.IsSummer 1200 Summer state
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Is Summer"
+    id: is_summer
+    register_type: read
+    address: 1200
+
+
+#       ███    ██ ██    ██ ███    ███ ██████  ███████ ██████  
+#       ████   ██ ██    ██ ████  ████ ██   ██ ██      ██   ██ 
+#       ██ ██  ██ ██    ██ ██ ████ ██ ██████  █████   ██████  
+#       ██  ██ ██ ██    ██ ██  ██  ██ ██   ██ ██      ██   ██ 
+#       ██   ████  ██████  ██      ██ ██████  ███████ ██   ██ 
+
+
+number:
+# CentralHeat.HeatExtern 1800 100 °C External heating offset from room temperature setpoint
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Heating External Offset"
+    id: heating_external_offset
+    unit_of_measurement: '°C'
+    device_class: temperature
+    register_type: holding
+    address: 1800
+    filters:
+      - multiply: 0.01
+# CentralHeat.SupplyMin 1802 100 °C Min supply temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Heating Supply Min"
+    id: heating_supply_min
+    unit_of_measurement: '°C'
+    device_class: temperature
+    register_type: holding
+    address: 1802
+    filters:
+      - multiply: 0.01
+# CentralHeat.SupplyMax 1803 100 °C Max supply temperature
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Heating Supply Max"
+    id: heating_supply_max
+    unit_of_measurement: '°C'
+    device_class: temperature
+    register_type: holding
+    address: 1803
+    filters:
+      - multiply: 0.01
+# CentralHeat.SupplyOffset 1804 100 °C Outdoor temperature compensation
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Heating Supply Offset"
+    id: heating_supply_offset
+    unit_of_measurement: '°C'
+    device_class: temperature
+    register_type: holding
+    address: 1804
+    filters:
+      - multiply: 0.01
+# CentralHeat.CurveSelect 1805 1 Temp. compensation curve: 1-10
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Heating Curve Select"
+    id: heating_curve_select
+    register_type: holding
+    address: 1805
+    min_value: 1
+    max_value: 10
+# CentralHeat.RegTime 1808 1 Sec PID regulations time: 0=2sec, 1-25(sec)
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Heating Regulation Time"
+    id: heating_regulation_time
+    register_type: holding
+    address: 1808
+    min_value: 0
+    max_value: 25
+# PreHeat.TempSet 4112 T4 start criteria when temperature controlled exchanger defrosting is selected (without no-frost), Range: 0..5, 0: OFF (Disable defrost, use heater only), 1..5, If ”Nordic” types with active T4 regulation only: Anti frost setpoint for min. exchanger outlet temp., 0: OFF (OFF=Disable, use passive defrost only)
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "PreHeat Temp Set"
+    id: preheat_temp_set
+    register_type: holding
+    address: 4112
+    min_value: 0
+    max_value: 5
+
+select:
+# CentralHeat.HeatSelect 1801 1 0=Only Pump motion and freze secure, 1=Always central heating, 2=Only central heating when room temperature low
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Heating Select"
+    id: heating_select
+    register_type: holding
+    address: 1801
+    force_new_range: true
+    use_write_multiple: true
+    value_type: U_WORD
+    optionsmap:
+      "Only Pump motion and freeze secure" : 0
+      "Always central heating" : 1
+      "Only central heating when room temperature low" : 2
+# CentralHeat.CircPumpMode 1806 1 0=Only when heating is active, 1=Continuous operation
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Heating Circulation Pump Mode"
+    id: heating_circ_pump_mode
+    register_type: holding
+    address: 1806
+    force_new_range: true
+    use_write_multiple: true
+    value_type: U_WORD
+    optionsmap:
+      "Only when heating is active" : 0
+      "Continuous operation" : 1
+# CentralHeat.HeatType 1807 1 0=OFF, 1=El, 2=Heatpump, 3=Both (first compressor then electric priority)
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Heating Type"
+    id: heating_type
+    register_type: holding
+    address: 1807
+    force_new_range: true
+    use_write_multiple: true
+    value_type: U_WORD
+    optionsmap:
+      "OFF" : 0
+      "El" : 1
+      "Heatpump" : 2
+      "Both" : 3
+
+switch:
+# PreHeat.Defrost 4111 Nordic: Select anti frost also during evap. defrost, COMFORT: Select T8 preheater allowance on R5, Range: 0..1, 0: STANDARD
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "PreHeat Defrost"
+    id: preheat_defrost
+    register_type: holding
+    address: 4111
