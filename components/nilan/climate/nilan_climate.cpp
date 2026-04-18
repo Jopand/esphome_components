@@ -37,7 +37,6 @@ void NilanClimate::setup() {
     ESP_LOGW(TAG, "mode_select has no active index yet during setup");
   }
 
-  size_t current_mode_index = static_cast<size_t>(mode_select_->active_index().value());
   nilanfanspeed_to_fanmode(fan_speed_number_->state); // Will update either fan_mode or custom_fan_mode
 }
 
