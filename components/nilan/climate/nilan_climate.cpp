@@ -8,35 +8,38 @@ static const char *TAG = "nilan.climate";
 
 void NilanClimate::setup() {
   current_temp_sensor_->add_on_state_callback([this](float state) {
-    // ESP_LOGD(TAG, "CURRENT TEMP SENSOR CALLBACK: %f", state);
     this->current_temperature = state;
     publish_state();
   });
+
   temp_setpoint_number_->add_on_state_callback([this](float state) {
-    // ESP_LOGD(TAG, "TEMP SETPOINT SENSOR CALLBACK: %f", state);
     this->target_temperature = state;
     publish_state();
   });
+
   mode_select_->add_on_state_callback([this](size_t index) {
-    // ESP_LOGD(TAG, "OPERATION MODE CALLBACK: %s", state.c_str());
+    // ESP_LOGD(TAG, "OPERATION MODE CALLBACK: %zu", index);
     nilanmodetext_to_climatemode(index);
     publish_state();
   });
+
   fan_speed_number_->add_on_state_callback([this](float state) {
-    // ESP_LOGD(TAG, "FAN SPEED SENSOR CALLBACK: %f", state);
+    // ESP_LOGD(TAG, "FAN SPEED CALLBACK: %f", state);
     nilanfanspeed_to_fanmode(state);
     publish_state();
   });
 
   this->current_temperature = current_temp_sensor_->state;
-  this->target_temperature  = temp_setpoint_number_->state;
-  
+  this->target_temperature = temp_setpoint_number_->state;
+
   if (auto current_mode_index = mode_select_->active_index(); current_mode_index.has_value()) {
+    // ESP_LOGD(TAG, "SETUP OPERATION MODE: %zu", *current_mode_index);
     nilanmodetext_to_climatemode(*current_mode_index);
   } else {
     ESP_LOGW(TAG, "mode_select has no active index yet during setup");
   }
 
+  // ESP_LOGD(TAG, "SETUP FAN SPEED: %f", fan_speed_number_->state);
   nilanfanspeed_to_fanmode(fan_speed_number_->state); // Will update either fan_mode or custom_fan_mode
 }
 
