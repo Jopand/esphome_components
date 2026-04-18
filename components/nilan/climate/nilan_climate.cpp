@@ -89,7 +89,7 @@ void NilanClimate::control(const climate::ClimateCall& call) {
 climate::ClimateTraits NilanClimate::traits() {
   auto traits = climate::ClimateTraits();
 
-  traits.set_supported_custom_fan_modes({
+  set_supported_custom_fan_modes({
     "1",
     "2",
     "3",
