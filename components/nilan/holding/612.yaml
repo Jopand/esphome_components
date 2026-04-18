@@ -15,7 +15,7 @@ number:
       uint16_t firstDigit = (intVal / 60); // 1 hour is written as '100' and not '60'
       uint16_t lastDigits = (intVal % 60); // 1:30 hours is written as '130' and not '90'
       uint16_t result = (firstDigit*100) + lastDigits;
-      payload = modbus_controller::float_to_payload(result, modbus_controller::SensorValueType::U_WORD);
+      payload = modbus::helpers::float_to_payload(result, modbus_controller::SensorValueType::U_WORD);
       return x;
     step: 1.0
     address: 612
