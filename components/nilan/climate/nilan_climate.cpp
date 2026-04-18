@@ -17,7 +17,7 @@ void NilanClimate::setup() {
     this->target_temperature = state;
     publish_state();
   });
-  mode_select_->add_on_state_callback([this](size_t index) {
+  mode_select_->add_on_state_callback([this](std::string state, size_t index) {
     // ESP_LOGD(TAG, "OPERATION MODE CALLBACK: %s", state.c_str());
     nilanmodetext_to_climatemode(index);
     publish_state();
@@ -30,8 +30,14 @@ void NilanClimate::setup() {
 
   this->current_temperature = current_temp_sensor_->state;
   this->target_temperature  = temp_setpoint_number_->state;
+  
+  if (auto current_mode_index = mode_select_->active_index(); current_mode_index.has_value()) {
+    nilanmodetext_to_climatemode(*current_mode_index);
+  } else {
+    ESP_LOGW(TAG, "mode_select has no active index yet during setup");
+  }
+
   size_t current_mode_index = static_cast<size_t>(mode_select_->active_index().value());
-  nilanmodetext_to_climatemode(current_mode_index);
   nilanfanspeed_to_fanmode(fan_speed_number_->state); // Will update either fan_mode or custom_fan_mode
 }
 
