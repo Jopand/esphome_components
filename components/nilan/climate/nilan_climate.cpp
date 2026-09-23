@@ -8,36 +8,38 @@ static const char *TAG = "nilan.climate";
 
 void NilanClimate::setup() {
   current_temp_sensor_->add_on_state_callback([this](float state) {
-    // ESP_LOGD(TAG, "CURRENT TEMP SENSOR CALLBACK: %f", state);
     this->current_temperature = state;
     publish_state();
   });
+
   temp_setpoint_number_->add_on_state_callback([this](float state) {
-    // ESP_LOGD(TAG, "TEMP SETPOINT SENSOR CALLBACK: %f", state);
     this->target_temperature = state;
     publish_state();
   });
-  mode_select_->add_on_state_callback([this](std::string state, size_t index) {
-    // ESP_LOGD(TAG, "OPERATION MODE CALLBACK: %s", state.c_str());
+
+  mode_select_->add_on_state_callback([this](size_t index) {
+    // ESP_LOGD(TAG, "OPERATION MODE CALLBACK: %zu", index);
     nilanmodetext_to_climatemode(index);
     publish_state();
   });
+
   fan_speed_number_->add_on_state_callback([this](float state) {
-    // ESP_LOGD(TAG, "FAN SPEED SENSOR CALLBACK: %f", state);
+    // ESP_LOGD(TAG, "FAN SPEED CALLBACK: %f", state);
     nilanfanspeed_to_fanmode(state);
     publish_state();
   });
 
   this->current_temperature = current_temp_sensor_->state;
-  this->target_temperature  = temp_setpoint_number_->state;
-  
+  this->target_temperature = temp_setpoint_number_->state;
+
   if (auto current_mode_index = mode_select_->active_index(); current_mode_index.has_value()) {
+    // ESP_LOGD(TAG, "SETUP OPERATION MODE: %zu", *current_mode_index);
     nilanmodetext_to_climatemode(*current_mode_index);
   } else {
     ESP_LOGW(TAG, "mode_select has no active index yet during setup");
   }
 
-  size_t current_mode_index = static_cast<size_t>(mode_select_->active_index().value());
+  // ESP_LOGD(TAG, "SETUP FAN SPEED: %f", fan_speed_number_->state);
   nilanfanspeed_to_fanmode(fan_speed_number_->state); // Will update either fan_mode or custom_fan_mode
 }
 
@@ -62,18 +64,18 @@ void NilanClimate::control(const climate::ClimateCall& call) {
 
   if (call.get_fan_mode().has_value())
   {
-    // The only valid fan mode that is not custom us "OFF"
+    // The only valid fan mode that is not custom is "OFF"
     auto new_fan_mode = *call.get_fan_mode();
-    custom_fan_mode.reset();
+    this->clear_custom_fan_mode_();
 
     ESP_LOGD(TAG, "Custom Fan mode set to: 0");
     fan_speed_number_->make_call().set_value(0).perform();
   }
 
-  if (call.get_custom_fan_mode().has_value())
+  if (call.has_custom_fan_mode())
   {
-    auto new_custom_fan_mode = *call.get_custom_fan_mode();
-    custom_fan_mode = new_custom_fan_mode;
+    auto new_custom_fan_mode = call.get_custom_fan_mode().str();
+    this->set_custom_fan_mode_(new_custom_fan_mode.c_str());
     fan_mode.reset();
     auto optional_nilan_fan_mode = parse_number<float>(new_custom_fan_mode.c_str());
     if(optional_nilan_fan_mode.has_value())
@@ -89,7 +91,7 @@ void NilanClimate::control(const climate::ClimateCall& call) {
 climate::ClimateTraits NilanClimate::traits() {
   auto traits = climate::ClimateTraits();
 
-  traits.set_supported_custom_fan_modes({
+  set_supported_custom_fan_modes({
     "1",
     "2",
     "3",
@@ -106,7 +108,7 @@ climate::ClimateTraits NilanClimate::traits() {
     climate::ClimateMode::CLIMATE_MODE_HEAT_COOL
    });
 
-  traits.set_supports_current_temperature(true);
+  traits.add_feature_flags(esphome::climate::CLIMATE_SUPPORTS_CURRENT_TEMPERATURE);
   traits.set_visual_temperature_step(1);
   traits.set_visual_min_temperature(5);
   traits.set_visual_max_temperature(30);
@@ -120,7 +122,7 @@ void NilanClimate::dump_config() {
 
 void NilanClimate::nilanfanspeed_to_fanmode(const int state)
 {
-  this->custom_fan_mode.reset();
+  this->clear_custom_fan_mode_();
   this->fan_mode.reset();
 
   switch (state) {
@@ -128,7 +130,7 @@ void NilanClimate::nilanfanspeed_to_fanmode(const int state)
   case 2:
   case 3:
   case 4:
-    this->custom_fan_mode = esphome::to_string(state);
+    this->set_custom_fan_mode_(esphome::to_string(state).c_str());
     break;
   case 0:
   default: 

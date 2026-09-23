@@ -4,7 +4,7 @@ select:
     name: "Request preset to factory settings"
     id: nilan_preset
     address: 1007
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     value_type: U_WORD
     optionsmap:

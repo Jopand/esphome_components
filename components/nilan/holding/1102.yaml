@@ -4,7 +4,7 @@ select:
     name: "Weekly air damper position self test"
     id: nilan_weekly_air_damper_position_self_test
     address: 1102
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     value_type: U_WORD
     optionsmap:

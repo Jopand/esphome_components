@@ -4,7 +4,7 @@ select:
     name: "Set service mode"
     id: nilan_set_service_mode
     address: 1005
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     value_type: U_WORD
     optionsmap:

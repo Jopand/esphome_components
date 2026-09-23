@@ -7,6 +7,6 @@ number:
     max_value: 8
     step: 1.0
     address: 1200
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
-    multiply: 100      
+    multiply: 100

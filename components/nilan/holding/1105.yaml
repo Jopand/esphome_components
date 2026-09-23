@@ -4,7 +4,7 @@ select:
     name: "Filter Alarm Days Set"
     id: nilan_filteralarm_days_set
     address: 1105
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     value_type: U_WORD
     optionsmap:

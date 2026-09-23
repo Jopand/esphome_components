@@ -4,7 +4,7 @@ select:
     name: "Set user function"
     id: nilan_set_user_function
     address: 601
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     value_type: U_WORD
     optionsmap:

@@ -9,6 +9,6 @@ number:
     max_value: 45.0
     step: 1.0
     address: 1912
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     multiply: 100

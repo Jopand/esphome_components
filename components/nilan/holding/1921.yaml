@@ -7,6 +7,6 @@ number:
     max_value: 750
     step: 1.0
     address: 1921
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     mode: slider

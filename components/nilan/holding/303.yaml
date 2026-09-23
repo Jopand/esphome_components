@@ -7,6 +7,6 @@ number:
     max_value: 31
     step: 1.0
     address: 303
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     internal: true

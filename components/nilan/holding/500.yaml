@@ -4,7 +4,7 @@ select:
     name: "Week program select"
     id: nilan_week_program_select
     address: 500
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     value_type: U_WORD
     optionsmap:

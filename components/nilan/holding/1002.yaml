@@ -4,7 +4,7 @@ select:
     name: "Set operation mode"
     id: nilan_set_operation_mode
     address: 1002
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     value_type: U_WORD
     optionsmap:

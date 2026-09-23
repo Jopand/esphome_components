@@ -9,6 +9,6 @@ number:
     unit_of_measurement: °C
     device_class: temperature
     address: 1207
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     multiply: 100
