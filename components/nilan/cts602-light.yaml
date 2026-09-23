@@ -28,7 +28,6 @@ packages:
       - components/nilan/input/408.yaml
       - components/nilan/input/409.yaml
       - components/nilan/input/1000.yaml
-      - components/nilan/input/1002.yaml
       - components/nilan/input/1003.yaml
       - components/nilan/input/1100.yaml     
       - components/nilan/input/1101.yaml
@@ -61,7 +60,6 @@ packages:
       - components/nilan/holding/305.yaml
       - components/nilan/holding/500.yaml
       - components/nilan/holding/600.yaml
-      - components/nilan/holding/601.yaml
       - components/nilan/holding/602.yaml
       - components/nilan/holding/603.yaml
       - components/nilan/holding/604.yaml

@@ -5,7 +5,23 @@ packages:
     files: 
       - components/nilan/comfort.yaml
       ### INPUT REGISTER FILES ###
+      - components/nilan/input/109.yaml
+      - components/nilan/input/110.yaml
       - components/nilan/input/201.yaml
+      - components/nilan/input/209.yaml
+      - components/nilan/input/211.yaml
+      - components/nilan/input/212.yaml
+      - components/nilan/input/213.yaml
+      - components/nilan/input/214.yaml
+      ### HOLDING REGISTER FILES ###
+      - components/nilan/holding/100.yaml
+      - components/nilan/holding/101.yaml
+      - components/nilan/holding/102.yaml
+      - components/nilan/holding/103.yaml
+      - components/nilan/holding/104.yaml
+      - components/nilan/holding/105.yaml
+      - components/nilan/holding/109.yaml
+      - components/nilan/holding/110.yaml
     refresh: 0s
 
 sensor:
@@ -53,58 +69,6 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
-    name: "Hot weater top temperature"
-    id: nilan_top_temp_t11
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    value_type: S_WORD
-    register_type: read
-    address: 211
-    filters:
-      - multiply: 0.01
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Hot water bottom temperature"
-    id: nilan_bottom_temp_t12
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    value_type: S_WORD
-    register_type: read
-    address: 212
-    filters:
-      - multiply: 0.01
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "EK return temperature"
-    id: nilan_return_temp_t13
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    value_type: S_WORD
-    register_type: read
-    address: 213
-    filters:
-      - multiply: 0.01
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "EK supply temperature"
-    id: nilan_supply_temp_t14
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    value_type: S_WORD
-    register_type: read
-    address: 214
-    filters:
-      - multiply: 0.01
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
     name: "AUX temperature"
     id: nilan_aux_temp_t16
     unit_of_measurement: °C
@@ -147,23 +111,14 @@ sensor:
 ###########################
 
 binary_sensor:
+  - platform: template
+    id: nilan_bypass_state
+    name: Bypass state
+    device_class: opening
+
 #########################
 #### INPUT REGISTERS ####
 #########################
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Hot water boiling"
-    id: nilan_hot_water_boiling
-    register_type: read
-    address: 109
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Hot water 3-way valve position"
-    id: nilan_3_way_position
-    register_type: read
-    address: 110
-
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
     name: "Hotgas defrost"
@@ -177,21 +132,3 @@ binary_sensor:
     id: nilan_defrost_termostat
     register_type: read
     address: 112
-
-###########################
-#### HOLDING REGISTERS ####
-###########################
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Compressor"
-    id: nilan_compressor
-    register_type: holding
-    address: 109
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Compressor 2"
-    id: nilan_compressor_2
-    register_type: holding
-    address: 110

@@ -1,0 +1,127 @@
+packages:
+  remote_package:
+    url: https://github.com/Jopand/esphome_components
+    ref: split_into_separate_files
+    files:
+      - components/nilan/basic.yaml
+      # Input registers
+      - components/nilan/input/0.yaml
+      - components/nilan/input/1.yaml
+      - components/nilan/input/100.yaml
+      - components/nilan/input/103.yaml
+      - components/nilan/input/107.yaml
+      - components/nilan/input/200.yaml
+      - components/nilan/input/210.yaml
+      - components/nilan/input/215.yaml
+      - components/nilan/input/222.yaml
+      - components/nilan/input/400.yaml
+      - components/nilan/input/401.yaml
+      - components/nilan/input/402.yaml
+      - components/nilan/input/403.yaml
+      - components/nilan/input/404.yaml
+      - components/nilan/input/405.yaml
+      - components/nilan/input/406.yaml
+      - components/nilan/input/407.yaml
+      - components/nilan/input/408.yaml
+      - components/nilan/input/409.yaml
+      - components/nilan/input/1000.yaml
+      - components/nilan/input/1200.yaml
+      - components/nilan/input/1201.yaml
+      - components/nilan/input/1202.yaml
+      - components/nilan/input/1203.yaml
+      - components/nilan/input/1205.yaml
+      - components/nilan/input/1206.yaml
+      # Holding registers
+      - components/nilan/holding/123.yaml
+      - components/nilan/holding/125.yaml
+      - components/nilan/holding/500.yaml
+      - components/nilan/holding/600.yaml
+      - components/nilan/holding/602.yaml
+      - components/nilan/holding/603.yaml
+      - components/nilan/holding/604.yaml
+      - components/nilan/holding/605.yaml
+      - components/nilan/holding/1000.yaml
+      - components/nilan/holding/1001.yaml
+      - components/nilan/holding/1910.yaml
+      - components/nilan/holding/1911.yaml
+      - components/nilan/holding/1912.yaml
+      - components/nilan/holding/1913.yaml
+      - components/nilan/holding/1920.yaml
+      - components/nilan/holding/1921.yaml
+      - components/nilan/holding/1922.yaml
+    refresh: 0s
+
+text_sensor:
+  - platform: template
+    name: "Air Quality Index CO2 (AQI)"
+    id: nilan_aqi_co2
+    icon: mdi:air-filter
+
+  - platform: template
+    name: "Alarm 1 timestamp"
+    id: nilan_alarm_list_1_datetime
+    lambda: |-
+      uint16_t alarmDate = id(nilan_alarm_list_1_date).state;
+      uint16_t alarmTime = id(nilan_alarm_list_1_time).state;
+
+      if (!alarmDate || !alarmTime) return std::string("");
+
+      auto year = (alarmDate >> 9) + 1980;
+      auto month = (alarmDate >> 5) & 0b00001111;
+      auto day = alarmDate & 0b00011111;
+      auto hour = (alarmTime >> 11) & 0b00011111;
+      auto minute = (alarmTime >> 5) & 0b0011111;
+      auto second = (alarmTime & 0b00011111) * 2;
+
+      return std::to_string(year) + "-" +
+        ((month < 10) ? "0" : "") + std::to_string(month) + "-" +
+        ((day < 10) ? "0" : "") + std::to_string(day) + " " +
+        ((hour < 10) ? "0" : "") + std::to_string(hour) + ":" +
+        ((minute < 10) ? "0" : "") + std::to_string(minute) + ":" +
+        ((second < 10) ? "0" : "") + std::to_string(second);
+
+  - platform: template
+    name: "Alarm 2 timestamp"
+    id: nilan_alarm_list_2_datetime
+    lambda: |-
+      uint16_t alarmDate = id(nilan_alarm_list_2_date).state;
+      uint16_t alarmTime = id(nilan_alarm_list_2_time).state;
+
+      if (!alarmDate || !alarmTime) return std::string("");
+
+      auto year = (alarmDate >> 9) + 1980;
+      auto month = (alarmDate >> 5) & 0b00001111;
+      auto day = alarmDate & 0b00011111;
+      auto hour = (alarmTime >> 11) & 0b00011111;
+      auto minute = (alarmTime >> 5) & 0b0011111;
+      auto second = (alarmTime & 0b00011111) * 2;
+
+      return std::to_string(year) + "-" +
+        ((month < 10) ? "0" : "") + std::to_string(month) + "-" +
+        ((day < 10) ? "0" : "") + std::to_string(day) + " " +
+        ((hour < 10) ? "0" : "") + std::to_string(hour) + ":" +
+        ((minute < 10) ? "0" : "") + std::to_string(minute) + ":" +
+        ((second < 10) ? "0" : "") + std::to_string(second);
+
+  - platform: template
+    name: "Alarm 3 timestamp"
+    id: nilan_alarm_list_3_datetime
+    lambda: |-
+      uint16_t alarmDate = id(nilan_alarm_list_3_date).state;
+      uint16_t alarmTime = id(nilan_alarm_list_3_time).state;
+
+      if (!alarmDate || !alarmTime) return std::string("");
+
+      auto year = (alarmDate >> 9) + 1980;
+      auto month = (alarmDate >> 5) & 0b00001111;
+      auto day = alarmDate & 0b00011111;
+      auto hour = (alarmTime >> 11) & 0b00011111;
+      auto minute = (alarmTime >> 5) & 0b0011111;
+      auto second = (alarmTime & 0b00011111) * 2;
+
+      return std::to_string(year) + "-" +
+        ((month < 10) ? "0" : "") + std::to_string(month) + "-" +
+        ((day < 10) ? "0" : "") + std::to_string(day) + " " +
+        ((hour < 10) ? "0" : "") + std::to_string(hour) + ":" +
+        ((minute < 10) ? "0" : "") + std::to_string(minute) + ":" +
+        ((second < 10) ? "0" : "") + std::to_string(second);

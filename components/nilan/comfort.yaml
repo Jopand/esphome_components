@@ -2,6 +2,43 @@ packages:
   remote_package:
     url: https://github.com/Jopand/esphome_components
     ref: split_into_separate_files
-    files: 
-      - components/nilan/cts602.yaml
+    files:
+      - components/nilan/all.yaml
+      # Input registers
+      - components/nilan/input/102.yaml
+      - components/nilan/input/104.yaml
+      - components/nilan/input/105.yaml
+      - components/nilan/input/106.yaml
+      - components/nilan/input/108.yaml
+      - components/nilan/input/113.yaml
+      - components/nilan/input/114.yaml
+      - components/nilan/input/115.yaml
+      - components/nilan/input/1204.yaml
+      # Holding registers
+      - components/nilan/holding/1200.yaml
+      - components/nilan/holding/1201.yaml
+      - components/nilan/holding/1202.yaml
+      - components/nilan/holding/1203.yaml
+      - components/nilan/holding/1204.yaml
+      - components/nilan/holding/1700.yaml
+      - components/nilan/holding/1701.yaml
     refresh: 0s
+
+binary_sensor:
+  - platform: template
+    name: "Air filter alarm"
+    id: nilan_filter_alarm
+    lambda: |-
+      return (id(nilan_alarm_list_1_id).state == 19
+        || id(nilan_alarm_list_2_id).state == 19
+        || id(nilan_alarm_list_3_id).state == 19);
+
+text_sensor:
+  - platform: template
+    name: "Air filter alarm status"
+    lambda: |-
+      if (id(nilan_filter_alarm).state) {
+        return {"Skift filter"};
+      } else {
+        return {"Filter OK"};
+      }
