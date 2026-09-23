@@ -11,7 +11,7 @@ select:
     name: "Week program select"
     id: nilan_week_program_select
     address: 500
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     value_type: U_WORD
     optionsmap:
@@ -82,7 +82,6 @@ sensor:
     modbus_controller_id: nilan_modbus_controller
     name: "Bus version"
     id: nilan_bus_version
-    skip_updates: 60
     internal: true
     accuracy_decimals: 0
     entity_category: diagnostic
@@ -323,7 +322,7 @@ number:
       return x;
     step: 1.0
     address: 602
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
   
   - platform: modbus_controller
@@ -334,7 +333,7 @@ number:
     max_value: 4.0
     step: 1.0
     address: 603
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
   
   - platform: modbus_controller
@@ -345,7 +344,7 @@ number:
     max_value: 30.0
     step: 1.0
     address: 604
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
 
   - platform: modbus_controller
@@ -356,7 +355,7 @@ number:
     max_value: 30.0
     step: 1.0
     address: 605
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
 
   - platform: modbus_controller
@@ -367,7 +366,7 @@ number:
     max_value: 4.0
     step: 1.0
     address: 1910
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     
   - platform: modbus_controller
@@ -378,7 +377,7 @@ number:
     max_value: 4.0
     step: 1.0
     address: 1911
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true 
 
   - platform: modbus_controller
@@ -391,7 +390,7 @@ number:
     max_value: 45.0
     step: 1.0
     address: 1912
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     multiply: 100
 
@@ -405,7 +404,7 @@ number:
     max_value: 180.0
     step: 1.0
     address: 1913
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     icon: mdi:clock-start
 
@@ -417,7 +416,7 @@ number:
     max_value: 4.0
     step: 1.0
     address: 1920
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
 
   - platform: modbus_controller
@@ -428,7 +427,7 @@ number:
     max_value: 750
     step: 1.0
     address: 1921
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     mode: slider
 
@@ -440,7 +439,7 @@ number:
     max_value: 800
     step: 1.0
     address: 1922
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
 
 text_sensor:
@@ -521,9 +520,7 @@ text_sensor:
     modbus_controller_id: nilan_modbus_controller
     name: "Software version"
     id: nilan_version_info
-    skip_updates: 60
     register_type: read
-    register_count: 3
     response_size: 6
     address: 1
     entity_category: diagnostic
@@ -579,7 +576,6 @@ text_sensor:
     name: "Aggregate type"
     id: nilan_platform_id
     entity_category: diagnostic
-    skip_updates: 60
     register_type: holding
     address: 1000
     lambda: !lambda |-
@@ -633,6 +629,6 @@ switch:
     id: nilan_on_off_state
     register_type: holding
     bitmask: 1
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     address: 1001

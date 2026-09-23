@@ -186,7 +186,7 @@ number:
     max_value: 55
     step: 1.0
     address: 1700
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     multiply: 100
   
@@ -198,6 +198,6 @@ number:
     max_value: 55
     step: 1.0
     address: 1701
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     multiply: 100

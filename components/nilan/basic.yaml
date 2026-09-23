@@ -10,7 +10,7 @@ select:
     name: "Set user function"
     id: nilan_set_user_function
     address: 601
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     value_type: U_WORD
     optionsmap:
@@ -27,7 +27,7 @@ select:
     name: "Set operation mode"
     id: nilan_set_operation_mode
     address: 1002
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     value_type: U_WORD
     optionsmap:
@@ -144,7 +144,7 @@ number:
     max_value: 4
     step: 1.0
     address: 1003
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
 
   - platform: modbus_controller
@@ -155,7 +155,7 @@ number:
     max_value: 30
     step: 1.0
     address: 1004
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     multiply: 100
 
