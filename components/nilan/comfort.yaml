@@ -121,7 +121,7 @@ binary_sensor:
 
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
-    name: "Heating surface frost/overheat"
+    name: "Heating surface frost-overheat"
     id: nilan_heating_surface_frost_oerheat
     register_type: read
     address: 105
@@ -186,7 +186,7 @@ number:
     max_value: 55
     step: 1.0
     address: 1700
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     multiply: 100
   
@@ -198,6 +198,6 @@ number:
     max_value: 55
     step: 1.0
     address: 1701
-    force_new_range: true
+    reuse_previous_range: false
     use_write_multiple: true
     multiply: 100
