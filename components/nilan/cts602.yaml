@@ -15,13 +15,21 @@ packages:
       - components/nilan/input/108.yaml
       - components/nilan/input/109.yaml
       - components/nilan/input/110.yaml
+      - components/nilan/input/111.yaml
+      - components/nilan/input/112.yaml
       - components/nilan/input/201.yaml
+      - components/nilan/input/202.yaml
+      - components/nilan/input/205.yaml
+      - components/nilan/input/206.yaml
       - components/nilan/input/210.yaml
       - components/nilan/input/211.yaml
       - components/nilan/input/212.yaml
       - components/nilan/input/213.yaml
       - components/nilan/input/214.yaml
       - components/nilan/input/215.yaml
+      - components/nilan/input/216.yaml
+      - components/nilan/input/217.yaml
+      - components/nilan/input/218.yaml
       - components/nilan/input/1500.yaml
       - components/nilan/input/1700.yaml
       ### HOLDING REGISTER FILES ###
