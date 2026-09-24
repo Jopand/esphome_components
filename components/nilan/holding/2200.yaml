@@ -1,8 +1,15 @@
-sensor:
+output:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
+    id: nilan_calibrate_dpt_command
+    address: 2200
+    value_type: U_WORD
+
+button:
+  - platform: template
     name: "Calibrate DPT"
     id: nilan_calibrate_dpt
-    accuracy_decimals: 0
-    register_type: holding
-    address: 2200
+    on_press:
+      - output.set_level:
+          id: nilan_calibrate_dpt_command
+          level: 100%
