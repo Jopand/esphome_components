@@ -1,0 +1,12 @@
+sensor:
+  - id: !remove nilan_humidity # IR221
+  - id: !remove nilan_average_humidity # IR3100, optional display package
+
+number:
+  - id: !remove humidity_low_vent_step # HR1910
+  - id: !remove humidity_high_vent_step # HR1911
+  - id: !remove humidity_limit_low_vent # HR1912
+  - id: !remove humidity_max_time_high_vent # HR1913
+
+text_sensor:
+  - id: !remove nilan_aqi_humidity

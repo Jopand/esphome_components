@@ -1,0 +1,14 @@
+binary_sensor:
+  - id: !remove nilan_user_function_2 # IR113
+
+text_sensor:
+  - id: !remove nilan_active_user_2_function # HR610
+
+select:
+  - id: !remove nilan_set_user_2_function # HR611
+
+number:
+  - id: !remove nilan_user_2_time_set # HR612
+  - id: !remove nilan_user_2_ventilation_speed_set # HR613
+  - id: !remove nilan_user_2_extend_temperature_set # HR614
+  - id: !remove nilan_user_2_offset_temperature_set # HR615

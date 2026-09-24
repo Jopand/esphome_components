@@ -1,3 +1,18 @@
 binary_sensor:
+  - id: !remove nilan_high_pressure # IR107
+  - id: !remove nilan_low_pressure # IR108
   - id: !remove nilan_compressor #109
   - id: !remove nilan_compressor_2 #110
+  - id: !remove nilan_air_condenser_active # HR114
+  - id: !remove nilan_air_condenser_inactive # HR115
+  - id: !remove nilan_condenser_state
+
+sensor:
+  - id: !remove nilan_condenser_temp_t5 # IR205
+  - id: !remove nilan_evap_temp_t6 # IR206
+  - id: !remove nilan_prepibe_temp_t18 # IR218
+  - id: !remove nilan_suction_pressure # IR219
+  - id: !remove nilan_discharge_pressure # IR220
+
+text_sensor:
+  - id: !remove nilan_compressor_type # IR1500

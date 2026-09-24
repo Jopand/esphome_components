@@ -1,4 +1,5 @@
 binary_sensor:
+  - id: !remove nilan_heating_surface_frost_overheat # IR105
   - id: !remove nilan_air_heat_circulation_pump #104
   - id: !remove nilan_air_heat_selected #105
   - id: !remove nilan_air_heater_relay_1 #106
@@ -7,3 +8,4 @@ binary_sensor:
 
 sensor:
   - id: !remove nilan_air_heater_capacity #202
+  - id: !remove nilan_heater_temp_t9 # IR209

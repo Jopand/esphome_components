@@ -1,3 +1,5 @@
 binary_sensor:
+  - id: !remove nilan_hotgas_defrost # IR111
+  - id: !remove nilan_4_way_valve # HR111
   - id: !remove nilan_hotgas_valve_heat #112
   - id: !remove nilan_hotgas_valve_cool #113
