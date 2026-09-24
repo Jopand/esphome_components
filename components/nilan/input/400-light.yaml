@@ -1,0 +1,20 @@
+binary_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Alarm active"
+    id: nilan_alarm_active
+    register_type: read
+    address: 400
+    bitmask: 0x80
+
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Alarm count"
+    id: nilan_alarm_count
+    accuracy_decimals: 0
+    register_type: read
+    address: 400
+    filters:
+      - lambda: !lambda |-
+          return static_cast<uint16_t>(x) & 0x03;

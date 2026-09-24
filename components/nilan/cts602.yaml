@@ -3,8 +3,9 @@ packages:
     url: https://github.com/Jopand/esphome_components
     ref: split_into_separate_files
     files:
-      - components/nilan/cts602-light.yaml
+      - components/nilan/cts602-common.yaml
       ### INPUT REGISTER FILES ###
+      - components/nilan/input/400-hmi350t.yaml
       - components/nilan/input/4.yaml
       - components/nilan/input/5.yaml
       - components/nilan/input/102.yaml
@@ -51,7 +52,5 @@ binary_sensor:
     id: nilan_condenser_state
     name: Condenser state
 
-#According to documentation, the address for cts602 should be 50. But it seems to be 0 as it is with the cts602 light
-#sensor:
-#- id: !extend nilan_protocol_node_address
-#  address: 50
+# HMI350T documents Bus.Address at HR50, but HR0 has also been observed.
+# Leave it out of this profile until its address is confirmed on hardware.
