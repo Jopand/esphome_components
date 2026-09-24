@@ -1,0 +1,8 @@
+binary_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Brine pressostat"
+    id: nilan_brine_pressostat
+    register_type: read
+    address: 117
+    bitmask: 1

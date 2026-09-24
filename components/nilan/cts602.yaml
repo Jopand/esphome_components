@@ -17,6 +17,8 @@ packages:
       - components/nilan/input/110.yaml
       - components/nilan/input/111.yaml
       - components/nilan/input/112.yaml
+      - components/nilan/input/116.yaml
+      - components/nilan/input/117.yaml
       - components/nilan/input/201.yaml
       - components/nilan/input/202.yaml
       - components/nilan/input/205.yaml
@@ -30,8 +32,13 @@ packages:
       - components/nilan/input/216.yaml
       - components/nilan/input/217.yaml
       - components/nilan/input/218.yaml
+      - components/nilan/input/219.yaml
+      - components/nilan/input/220.yaml
       - components/nilan/input/1500.yaml
       - components/nilan/input/1700.yaml
+      - components/nilan/input/1701.yaml
+      - components/nilan/input/1800.yaml
+      - components/nilan/input/2100.yaml
       ### HOLDING REGISTER FILES ###
       - components/nilan/holding/106.yaml
       - components/nilan/holding/107.yaml
