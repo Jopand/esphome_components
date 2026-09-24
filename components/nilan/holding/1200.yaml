@@ -1,12 +1,12 @@
 number:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
-    name: "Cooling set temperature"
+    name: "Cooling setpoint preset"
     id: nilan_cooling_set_temp
+    # Protocol enum: 0 = Off, 1-8 select offsets from the temperature setpoint.
     min_value: 0
     max_value: 8
     step: 1.0
     address: 1200
     reuse_previous_range: false
     use_write_multiple: true
-    multiply: 100

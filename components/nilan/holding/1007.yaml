@@ -1,19 +1,14 @@
 select:
   - platform: modbus_controller
     modbus_controller_id: nilan_modbus_controller
-    name: "Set service mode"
-    id: nilan_set_service_mode
-    address: 1005
+    name: "Request preset to factory settings"
+    id: nilan_preset
+    address: 1007
     reuse_previous_range: false
     use_write_multiple: true
     value_type: U_WORD
     optionsmap:
-      "Off" : 0
-      "Defrost" : 1
-      "Flaps" : 2
-      "Inlet" : 3
-      "Exhaust" : 4
-      "Compressor" : 5
-      "Heating" : 6
-      "Hot water" : 7
-      "Central heat" : 8
+      "Ready" : 0
+      "Standard (to factory default)" : 1
+      "Backup (to user file)" : 2
+      "Restore (from user file)" : 3

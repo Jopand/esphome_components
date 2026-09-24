@@ -6,14 +6,14 @@ text_sensor:
     register_type: holding
     address: 1103
     lambda: |-
-      uint16_t alarmDate = id(nilan_alarm_list_1_date).state;
-            
-      if(!alarmDate) return esphome::optional<std::string>("");
+      uint16_t testDate = (data[item->offset] << 8) | data[item->offset + 1];
+
+      if(!testDate) return esphome::optional<std::string>("");
       
       // Parse the date
-      auto year = (alarmDate >> 9) + 1980;
-      auto month = (alarmDate >> 5) & 0b00001111;
-      auto day = alarmDate & 0b00011111;
+      auto year = (testDate >> 9) + 1980;
+      auto month = (testDate >> 5) & 0b00001111;
+      auto day = testDate & 0b00011111;
       
       std::string dateString = std::to_string(year) + "-" +
         ((month < 10) ? "0" : "") + std::to_string(month) + "-" + 
