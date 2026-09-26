@@ -2,10 +2,13 @@ external_components:
   - source: github://Jopand/esphome_components@main
     refresh: 0s
 
+substitutions:
+  branch_ref: main
+
 packages:
   remote_package:
     url: https://github.com/Jopand/esphome_components
-    ref: split_into_separate_files
+    ref: ${branch_ref}
     files:
       ### INPUT REGISTER FILES ###
       - components/nilan/input/203.yaml

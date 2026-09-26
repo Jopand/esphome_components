@@ -1,7 +1,10 @@
+substitutions:
+  branch_ref: main
+
 packages:
   remote_package:
     url: https://github.com/Jopand/esphome_components
-    ref: split_into_separate_files
+    ref: ${branch_ref}
     files:
       - components/nilan/basic.yaml
       # Input registers
