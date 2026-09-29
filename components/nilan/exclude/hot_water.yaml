@@ -1,0 +1,18 @@
+binary_sensor:
+  - id: !remove nilan_hot_water_boiling #109
+  - id: !remove nilan_hot_3_way_valve_position #110
+  - id: !remove nilan_hot_water_heater #116
+  - id: !remove nilan_hot_water_3_way_valve #117
+
+sensor:
+  - id: !remove nilan_top_temp_t11 #211
+  - id: !remove nilan_bottom_temp_t12 #212
+  - id: !remove nilan_aux_temp_t16 # IR216
+
+text_sensor:
+  - id: !remove nilan_hotwater_type # IR1700
+  - id: !remove nilan_hotwater_anode_state # IR1701
+
+number:
+  - id: !remove nilan_top_temperature_set # HR1700
+  - id: !remove nilan_bottom_temperature_set # HR1701

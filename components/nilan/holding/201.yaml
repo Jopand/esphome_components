@@ -1,0 +1,12 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Inlet fan speed"
+    id: nilan_inlet_fan_speed
+    unit_of_measurement: '%'
+    icon: "mdi:percent"
+    accuracy_decimals: 0
+    register_type: holding
+    address: 201
+    filters:
+      - multiply: 0.01

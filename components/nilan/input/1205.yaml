@@ -1,0 +1,11 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Requested capacity"
+    id: nilan_requested_capacity
+    unit_of_measurement: '%'
+    accuracy_decimals: 0
+    register_type: read
+    address: 1205
+    filters:
+      - multiply: 0.01

@@ -1,0 +1,8 @@
+binary_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "High pressure switch"
+    id: nilan_high_pressure
+    register_type: read
+    address: 107
+    bitmask: 1

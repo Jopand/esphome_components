@@ -58,6 +58,50 @@ modbus_controller:
   update_interval: 30s
 ```
 
+### Model packages and optional hardware
+
+The model packages provide a complete register set for a specific Nilan controller. Add exclusion files after the model package to remove entities for hardware that is not installed. The optional `display.yaml` package can be added when display registers are needed.
+
+```yaml
+packages:
+  nilan:
+    url: https://github.com/Jopand/esphome_components
+    ref: main
+    files:
+      - components/nilan/cts602.yaml
+      # - components/nilan/display.yaml
+
+      # Remove the features that are not installed in this unit.
+      - components/nilan/exclude/air_damper.yaml
+      - components/nilan/exclude/air_heater.yaml
+      - components/nilan/exclude/compressor.yaml
+      - components/nilan/exclude/co2_sensor.yaml
+      - components/nilan/exclude/ek.yaml
+      - components/nilan/exclude/hot_gas.yaml
+      - components/nilan/exclude/hot_water.yaml
+    refresh: 0s
+
+uart:
+  rx_pin: GPIO16
+  tx_pin: GPIO17
+  parity: EVEN
+  baud_rate: 19200
+  id: uart_modbus
+  stop_bits: 1
+
+modbus:
+  id: modbus_id
+  uart_id: uart_modbus
+
+modbus_controller:
+  id: nilan_modbus_controller
+  address: 30
+  modbus_id: modbus_id
+  update_interval: 30s
+```
+
+The existing `basic.yaml`, `all.yaml`, `light.yaml`, `comfort.yaml`, and `full.yaml` package paths remain available for existing configurations.
+
 ### Example of a Nilan light compatible configuration yaml
 ```yaml
 packages:

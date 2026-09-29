@@ -1,634 +1,130 @@
+substitutions:
+  branch_ref: main
+
 packages:
   remote_package:
     url: https://github.com/Jopand/esphome_components
-    ref: main
-    files: [components/nilan/basic.yaml]
+    ref: ${branch_ref}
+    files:
+      - components/nilan/basic.yaml
+      # Input registers
+      - components/nilan/input/0.yaml
+      - components/nilan/input/1.yaml
+      - components/nilan/input/100.yaml
+      - components/nilan/input/103.yaml
+      - components/nilan/input/107.yaml
+      - components/nilan/input/200.yaml
+      - components/nilan/input/210.yaml
+      - components/nilan/input/215.yaml
+      - components/nilan/input/222.yaml
+      - components/nilan/input/400.yaml
+      - components/nilan/input/401.yaml
+      - components/nilan/input/402.yaml
+      - components/nilan/input/403.yaml
+      - components/nilan/input/404.yaml
+      - components/nilan/input/405.yaml
+      - components/nilan/input/406.yaml
+      - components/nilan/input/407.yaml
+      - components/nilan/input/408.yaml
+      - components/nilan/input/409.yaml
+      - components/nilan/input/1000.yaml
+      - components/nilan/input/1200.yaml
+      - components/nilan/input/1201.yaml
+      - components/nilan/input/1202.yaml
+      - components/nilan/input/1203.yaml
+      - components/nilan/input/1205.yaml
+      - components/nilan/input/1206.yaml
+      # Holding registers
+      - components/nilan/holding/123.yaml
+      - components/nilan/holding/125.yaml
+      - components/nilan/holding/500.yaml
+      - components/nilan/holding/600.yaml
+      - components/nilan/holding/602.yaml
+      - components/nilan/holding/603.yaml
+      - components/nilan/holding/604.yaml
+      - components/nilan/holding/605.yaml
+      - components/nilan/holding/1000.yaml
+      - components/nilan/holding/1001.yaml
+      - components/nilan/holding/1910.yaml
+      - components/nilan/holding/1911.yaml
+      - components/nilan/holding/1912.yaml
+      - components/nilan/holding/1913.yaml
+      - components/nilan/holding/1920.yaml
+      - components/nilan/holding/1921.yaml
+      - components/nilan/holding/1922.yaml
     refresh: 0s
-
-select:
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Week program select"
-    id: nilan_week_program_select
-    address: 500
-    reuse_previous_range: false
-    use_write_multiple: true
-    value_type: U_WORD
-    optionsmap:
-      "None" : 0
-      "Program 1" : 1
-      "Program 2" : 2
-      "Program 3" : 3
-      "Erase" : 4
-
-binary_sensor:
-#########################
-#### INPUT REGISTERS ####
-#########################
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "User function"
-    id: nilan_user_function
-    register_type: read
-    address: 100
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Smoke alarm"
-    id: nilan_smoke_alarm
-    register_type: read
-    address: 103
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "High pressure switch"
-    id: nilan_high_pressure
-    register_type: read
-    address: 107
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Summer mode"
-    id: nilan_is_summer
-    register_type: read
-    address: 1200
-    bitmask: 1
-
-###########################
-#### HOLDING REGISTERS ####
-###########################
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "User function active"
-    id: nilan_user_function_active
-    register_type: holding
-    address: 123
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Defrost function active"
-    id: nilan_defrost_function_active
-    register_type: holding
-    address: 125
-
-sensor:
-#########################
-#### INPUT REGISTERS ####
-#########################
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Bus version"
-    id: nilan_bus_version
-    internal: true
-    accuracy_decimals: 0
-    entity_category: diagnostic
-    register_type: read
-    address: 0
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Controller temperature"
-    id: nilan_controller_temp_t0
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    register_type: read
-    address: 200
-    filters:
-      - multiply: 0.01
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "External room temperature"
-    id: nilan_extern_temp_t10
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    value_type: S_WORD
-    register_type: read
-    address: 210
-    filters:
-      - multiply: 0.01
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Room temperature"
-    id: nilan_room_temp_t15
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    value_type: S_WORD
-    register_type: read
-    address: 215
-    filters:
-      - multiply: 0.01
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "CO2"
-    id: nilan_co2_level
-    unit_of_measurement: "ppm"
-    icon: "mdi:molecule-co2"
-    accuracy_decimals: 0
-    register_type: read
-    address: 222
-    on_value: 
-      - lambda: !lambda |-
-          id(aqi_co2).publish_state( (x < 400) ? "Excellent" : 
-                                      (x < 1000) ? "Fine" : 
-                                      (x < 1500) ? "Moderate" :
-                                      (x < 2000) ? "Poor" :
-                                      (x < 5000) ? "Very Poor" :
-                                      "Severe");
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Active alarms"
-    id: nilan_active_alarms
-    accuracy_decimals: 0
-    register_type: read
-    address: 400
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Alarm list 1 id"
-    id: nilan_alarm_list_1_id
-    accuracy_decimals: 0
-    register_type: read
-    address: 401
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    internal: true
-    id: nilan_alarm_list_1_date
-    accuracy_decimals: 0
-    register_type: read
-    address: 402
-    
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    internal: true
-    id: nilan_alarm_list_1_time
-    accuracy_decimals: 0
-    register_type: read
-    address: 403
-    
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Alarm list 2 id"
-    id: nilan_alarm_list_2_id
-    accuracy_decimals: 0
-    register_type: read
-    address: 404
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    internal: true
-    id: nilan_alarm_list_2_date
-    accuracy_decimals: 0
-    register_type: read
-    address: 405
-    
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    internal: true
-    id: nilan_alarm_list_2_time
-    accuracy_decimals: 0
-    register_type: read
-    address: 406
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Alarm list 3 id"
-    id: nilan_alarm_list_3_id
-    accuracy_decimals: 0
-    register_type: read
-    address: 407
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    internal: true
-    id: nilan_alarm_list_3_date
-    accuracy_decimals: 0
-    register_type: read
-    address: 408
-    
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    internal: true
-    id: nilan_alarm_list_3_time
-    accuracy_decimals: 0
-    register_type: read
-    address: 409
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Actual on-off state"
-    id: nilan_actual_on_off_state
-    accuracy_decimals: 0
-    register_type: read
-    address: 1000
-
-  #- platform: modbus_controller
-  #  modbus_controller_id: nilan_modbus_controller
-  #  name: "Seconds in state"
-  #  id: nilan_seconds_in_state
-  #  accuracy_decimals: 0
-  #  register_type: read
-  #  address: 1003
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Inlet temperature request"
-    id: nilan_inlet_temp_set
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    value_type: S_WORD
-    register_type: read
-    address: 1201
-    filters:
-      - multiply: 0.01
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Actual value for controlled temperature"
-    id: nilan_temp_control
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    value_type: S_WORD
-    register_type: read
-    address: 1202
-    filters:
-      - multiply: 0.01
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Actual room temperature"
-    id: nilan_actual_room_temp
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    value_type: S_WORD
-    register_type: read
-    address: 1203
-    filters:
-      - multiply: 0.01
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Requested capacity"
-    id: nilan_requested_capacity
-    unit_of_measurement: '%'
-    accuracy_decimals: 0
-    register_type: read
-    address: 1205
-    filters:
-      - multiply: 0.01
-      
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Actual capacity"
-    id: nilan_actual_capacity
-    unit_of_measurement: '%'
-    accuracy_decimals: 0
-    register_type: read
-    address: 1206
-    filters:
-      - multiply: 0.01
-
-number:
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "User time set (minutes)"
-    id: nilan_user_time_set
-    value_type: U_WORD
-    min_value: 1.0
-    max_value: 480.0
-    lambda: !lambda |-
-      uint16_t hours = x/100; // 100 is 1 hour
-      uint16_t minutes = ((uint16_t)x) % 100;
-      return (hours*60) + minutes;
-    write_lambda: !lambda |-
-      uint16_t intVal = x;
-      uint16_t firstDigit = (intVal / 60); // 1 hour is written as '100' and not '60'
-      uint16_t lastDigits = (intVal % 60); // 1:30 hours is written as '130' and not '90'
-      uint16_t result = (firstDigit*100) + lastDigits;
-      modbus::helpers::float_to_payload(payload, result, modbus::helpers::SensorValueType::U_WORD);
-      return x;
-    step: 1.0
-    address: 602
-    reuse_previous_range: false
-    use_write_multiple: true
-  
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "User ventilation speed set"
-    id: nilan_user_ventilation_speed_set
-    min_value: 0.0
-    max_value: 4.0
-    step: 1.0
-    address: 603
-    reuse_previous_range: false
-    use_write_multiple: true
-  
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "User temperature set (Extend only)"
-    id: nilan_user_extend_temperature_set
-    min_value: 15.0
-    max_value: 30.0
-    step: 1.0
-    address: 604
-    reuse_previous_range: false
-    use_write_multiple: true
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "User temperature set (Offset only)"
-    id: nilan_user_offset_temperature_set
-    min_value: 15.0
-    max_value: 30.0
-    step: 1.0
-    address: 605
-    reuse_previous_range: false
-    use_write_multiple: true
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Humidity low vent step"
-    id: humidity_low_vent_step
-    min_value: 0.0
-    max_value: 4.0
-    step: 1.0
-    address: 1910
-    reuse_previous_range: false
-    use_write_multiple: true
-    
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Humidity high vent step"
-    id: humidity_high_vent_step
-    min_value: 0.0
-    max_value: 4.0
-    step: 1.0
-    address: 1911
-    reuse_previous_range: false
-    use_write_multiple: true 
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Humidity limit low vent"
-    id: humidity_limit_low_vent    
-    unit_of_measurement: '%'
-    icon: "mdi:percent"
-    min_value: 15.0
-    max_value: 45.0
-    step: 1.0
-    address: 1912
-    reuse_previous_range: false
-    use_write_multiple: true
-    multiply: 100
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Humidity max time on high ventilation (minutes)"
-    id: humidity_max_time_high_vent
-    value_type: U_WORD
-    unit_of_measurement: minutes
-    min_value: 0.0
-    max_value: 180.0
-    step: 1.0
-    address: 1913
-    reuse_previous_range: false
-    use_write_multiple: true
-    icon: mdi:clock-start
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "CO2 high vent step"
-    id: co2_high_vent_step
-    min_value: 0.0
-    max_value: 4.0
-    step: 1.0
-    address: 1920
-    reuse_previous_range: false
-    use_write_multiple: true
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "CO2 limit normal ventilation"
-    id: co2_limit_normal_ventilation
-    min_value: 400
-    max_value: 750
-    step: 1.0
-    address: 1921
-    reuse_previous_range: false
-    use_write_multiple: true
-    mode: slider
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "CO2 limit high ventilation"
-    id: co2_limit_high_ventilation
-    min_value: 650
-    max_value: 800
-    step: 1.0
-    address: 1922
-    reuse_previous_range: false
-    use_write_multiple: true
 
 text_sensor:
   - platform: template
     name: "Air Quality Index CO2 (AQI)"
-    id: aqi_co2
-    icon: mdi:air-filter    
+    id: nilan_aqi_co2
+    icon: mdi:air-filter
+
   - platform: template
     name: "Alarm 1 timestamp"
     id: nilan_alarm_list_1_datetime
     lambda: |-
       uint16_t alarmDate = id(nilan_alarm_list_1_date).state;
       uint16_t alarmTime = id(nilan_alarm_list_1_time).state;
-      
-      if(!alarmDate ||!alarmTime) return std::string("");
-      
-      // Parse the date
+
+      if (!alarmDate || !alarmTime) return std::string("");
+
       auto year = (alarmDate >> 9) + 1980;
       auto month = (alarmDate >> 5) & 0b00001111;
       auto day = alarmDate & 0b00011111;
       auto hour = (alarmTime >> 11) & 0b00011111;
       auto minute = (alarmTime >> 5) & 0b0011111;
       auto second = (alarmTime & 0b00011111) * 2;
-      
+
       return std::to_string(year) + "-" +
-        ((month < 10) ? "0" : "") + std::to_string(month) + "-" + 
+        ((month < 10) ? "0" : "") + std::to_string(month) + "-" +
         ((day < 10) ? "0" : "") + std::to_string(day) + " " +
         ((hour < 10) ? "0" : "") + std::to_string(hour) + ":" +
         ((minute < 10) ? "0" : "") + std::to_string(minute) + ":" +
         ((second < 10) ? "0" : "") + std::to_string(second);
+
   - platform: template
     name: "Alarm 2 timestamp"
     id: nilan_alarm_list_2_datetime
     lambda: |-
       uint16_t alarmDate = id(nilan_alarm_list_2_date).state;
       uint16_t alarmTime = id(nilan_alarm_list_2_time).state;
-      
-      if(!alarmDate ||!alarmTime) return std::string("");
-      
-      // Parse the date
+
+      if (!alarmDate || !alarmTime) return std::string("");
+
       auto year = (alarmDate >> 9) + 1980;
       auto month = (alarmDate >> 5) & 0b00001111;
       auto day = alarmDate & 0b00011111;
       auto hour = (alarmTime >> 11) & 0b00011111;
       auto minute = (alarmTime >> 5) & 0b0011111;
       auto second = (alarmTime & 0b00011111) * 2;
-      
+
       return std::to_string(year) + "-" +
-        ((month < 10) ? "0" : "") + std::to_string(month) + "-" + 
+        ((month < 10) ? "0" : "") + std::to_string(month) + "-" +
         ((day < 10) ? "0" : "") + std::to_string(day) + " " +
         ((hour < 10) ? "0" : "") + std::to_string(hour) + ":" +
         ((minute < 10) ? "0" : "") + std::to_string(minute) + ":" +
         ((second < 10) ? "0" : "") + std::to_string(second);
+
   - platform: template
     name: "Alarm 3 timestamp"
     id: nilan_alarm_list_3_datetime
     lambda: |-
       uint16_t alarmDate = id(nilan_alarm_list_3_date).state;
       uint16_t alarmTime = id(nilan_alarm_list_3_time).state;
-      
-      if(!alarmDate ||!alarmTime) return std::string("");
-      
-      // Parse the date
+
+      if (!alarmDate || !alarmTime) return std::string("");
+
       auto year = (alarmDate >> 9) + 1980;
       auto month = (alarmDate >> 5) & 0b00001111;
       auto day = alarmDate & 0b00011111;
       auto hour = (alarmTime >> 11) & 0b00011111;
       auto minute = (alarmTime >> 5) & 0b0011111;
       auto second = (alarmTime & 0b00011111) * 2;
-      
+
       return std::to_string(year) + "-" +
-        ((month < 10) ? "0" : "") + std::to_string(month) + "-" + 
+        ((month < 10) ? "0" : "") + std::to_string(month) + "-" +
         ((day < 10) ? "0" : "") + std::to_string(day) + " " +
         ((hour < 10) ? "0" : "") + std::to_string(hour) + ":" +
         ((minute < 10) ? "0" : "") + std::to_string(minute) + ":" +
         ((second < 10) ? "0" : "") + std::to_string(second);
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Software version"
-    id: nilan_version_info
-    register_type: read
-    response_size: 6
-    address: 1
-    entity_category: diagnostic
-    lambda: !lambda |-
-      float bus_version = nilan_bus_version->get_state();
-      std::string output;
-      
-      if (bus_version == 8) {
-        output = data[item->offset+1];
-        output += data[item->offset+0];
-        output += data[item->offset+3];
-        output += data[item->offset+2];
-        output += data[item->offset+5]; 
-        output += data[item->offset+4];
-      } else {  
-        output = data[item->offset+0];
-        output += data[item->offset+1];
-        output += '.';
-        output += data[item->offset+2];
-        output += data[item->offset+3];
-        output += '.';
-        output += data[item->offset+4];
-        output += data[item->offset+5];
-      }
- 
-      ESP_LOGD("main","Parsed SW version: %s", output.c_str()); 
-      return output;
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Actual user function"
-    id: nilan_actual_user_function
-    register_type: holding
-    address: 600
-    lambda: !lambda |-
-      uint16_t int_user_function = (data[item->offset] << 8) + data[item->offset+1];
-      ESP_LOGD("main","Parsed user function int : %d", int_user_function);
-      std::string actual_user_function;
-      switch(int_user_function) {
-        case 0: actual_user_function = "0 : None"; break;
-        case 1: actual_user_function = "1 : Extend"; break;
-        case 2: actual_user_function = "2 : Inlet"; break;
-        case 3: actual_user_function = "3 : Exhaust"; break;
-        case 4: actual_user_function = "4 : External heater offset"; break;
-        case 5: actual_user_function = "5 : Ventilate"; break;
-        case 6: actual_user_function = "6 : Cooker Hood"; break;
-        default: actual_user_function = ""; break;
-      }
-      return actual_user_function;
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Aggregate type"
-    id: nilan_platform_id
-    entity_category: diagnostic
-    register_type: holding
-    address: 1000
-    lambda: !lambda |-
-      uint16_t int_type = (data[item->offset] << 8) + data[item->offset+1];
-      ESP_LOGD("main","Parsed aggregate type int : %d", int_type);
-      std::string type_str;
-      switch (int_type) {
-        case 0: type_str = "None"; break;
-        case 1: type_str = "Test"; break;
-        case 2: type_str = "VPL 10 uden køl"; break;
-        case 3: type_str = "VPL 15 uden køl"; break;
-        case 4: type_str = "VPL 15 med køl"; break;
-        case 5: type_str = "VPL 25 med 3 hastigheder uden køl"; break;
-        case 6: type_str = "VPL 25 med 3 hastigheder med køl"; break;
-        case 7: type_str = "VPL 28 2 hastigheder uden køl"; break;
-        case 8: type_str = "VPL 28 med 2 hastigheder med køl"; break;
-        case 9: type_str = "VP 18 med kryds monteret oven på anlæg uden køl"; break;
-        case 10: type_str = "VP 18 med kryds monteret oven på anlæg med køl"; break;
-        case 11: type_str = "Vp 18 Compact og Compact p uden køl"; break;
-        case 12: type_str = "VP 18 Compact og Compact P med køl"; break;
-        case 13: type_str = "Comfort anlæg (Comfort 300 LR)"; break;
-        case 14: type_str = "CT 150 anlæg med 1-2-3 omskifter"; break;
-        case 15: type_str = "VLX som kører VAV"; break;
-        case 16: type_str = "VLX med 2 trin"; break;
-        case 17: type_str = "VLX med 3 trin"; break;
-        case 18: type_str = "VP 18 uden køl"; break;
-        case 19: type_str = "VP 18 med køl"; break;
-        case 20: type_str = "VP 18 med elkedel uden køl"; break;
-        case 21: type_str = "VP 18 med elkedel og køl"; break;
-        case 22: type_str = "VGU 250 brugsvands varmepumpe"; break;
-        case 23: type_str = "VGU 250 brugsvands varmepumpe med elkedel"; break;
-        case 24: type_str = "VPL 25 uden køl"; break;
-        case 25: type_str = "VPL 25 med køl"; break;
-        case 26: type_str = "VPM 120-560"; break;
-        case 27: type_str = "Comfort 1200 - 4000"; break;
-        case 28: type_str = "VP 20 Compact gorona"; break;
-        case 29: type_str = "VLX med CTS 602 print"; break;
-        case 30: type_str = "Compact P Nordic"; break;
-        case 31: type_str = "Comfort Nordic"; break;
-        case 32: type_str = "VP 18 Version 1"; break;
-        case 33: type_str = "Combi 300"; break;
-        case 34: type_str = "Compact med 4-vejsventil uden køl"; break;
-        default: type_str = "Unknown"; break;
-      }
-      return type_str;
-
-switch:
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "On-Off state"
-    id: nilan_on_off_state
-    register_type: holding
-    bitmask: 1
-    reuse_previous_range: false
-    use_write_multiple: true
-    address: 1001

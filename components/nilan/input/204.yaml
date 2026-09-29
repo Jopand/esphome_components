@@ -1,0 +1,13 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Outlet temperature"
+    id: nilan_outlet_temp_t4
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    value_type: S_WORD
+    register_type: read
+    address: 204
+    filters:
+      - multiply: 0.01

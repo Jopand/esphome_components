@@ -1,0 +1,18 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "CO2"
+    id: nilan_co2_level
+    unit_of_measurement: "ppm"
+    icon: "mdi:molecule-co2"
+    accuracy_decimals: 0
+    register_type: read
+    address: 222
+    on_value: 
+      - lambda: !lambda |-
+          id(nilan_aqi_co2).publish_state( (x < 400) ? "Excellent" : 
+                                      (x < 1000) ? "Fine" : 
+                                      (x < 1500) ? "Moderate" :
+                                      (x < 2000) ? "Poor" :
+                                      (x < 5000) ? "Very Poor" :
+                                      "Severe");

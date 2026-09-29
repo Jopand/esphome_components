@@ -1,0 +1,21 @@
+text_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Active user function 2"
+    id: nilan_active_user_2_function
+    register_type: holding
+    address: 610
+    lambda: !lambda |-
+      uint16_t int_user_function = (data[item->offset] << 8) + data[item->offset+1];
+      ESP_LOGD("main","Parsed user function int : %d", int_user_function);
+
+      switch(int_user_function) {
+        case 0: return esphome::optional<std::string>("0 : None");
+        case 1: return esphome::optional<std::string>("1 : Extend");
+        case 2: return esphome::optional<std::string>("2 : Inlet");
+        case 3: return esphome::optional<std::string>("3 : Exhaust");
+        case 4: return esphome::optional<std::string>("4 : External heater offset");
+        case 5: return esphome::optional<std::string>("5 : Ventilate");
+        case 6: return esphome::optional<std::string>("6 : Cooker Hood");
+        default: return esphome::optional<std::string>("");
+      }

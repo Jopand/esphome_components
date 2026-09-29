@@ -1,193 +1,48 @@
+substitutions:
+  branch_ref: main
+
 packages:
   remote_package:
     url: https://github.com/Jopand/esphome_components
-    ref: main
-    files: [components/nilan/all.yaml]
+    ref: ${branch_ref}
+    files:
+      - components/nilan/all.yaml
+      # Input registers
+      - components/nilan/input/102.yaml
+      - components/nilan/input/104.yaml
+      - components/nilan/input/105.yaml
+      - components/nilan/input/106.yaml
+      - components/nilan/input/108.yaml
+      - components/nilan/input/113.yaml
+      - components/nilan/input/114.yaml
+      - components/nilan/input/115.yaml
+      - components/nilan/input/1100.yaml
+      - components/nilan/input/1103.yaml
+      - components/nilan/input/1104.yaml
+      - components/nilan/input/1204.yaml
+      # Holding registers
+      - components/nilan/holding/1200.yaml
+      - components/nilan/holding/1201.yaml
+      - components/nilan/holding/1202.yaml
+      - components/nilan/holding/1203.yaml
+      - components/nilan/holding/1204.yaml
     refresh: 0s
 
-sensor:
-  - platform: template
-    name: "Calculated difference exhaust and inlet"
-    id: calculated_value_inlet_exhaust
-    icon: "mdi:thermometer"
-    unit_of_measurement: °C
-    update_interval: 10s
-    lambda: 'return id(nilan_exhaust_temp_t3).state - id(nilan_inlet_temp_t7).state;'
-
-#########################
-#### INPUT REGISTERS ####
-#########################   
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Actual fan step"
-    id: nilan_actual_fan_step
-    accuracy_decimals: 0
-    register_type: read
-    address: 1100    
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Days since last filter change alarm"
-    id: nilan_days_since_last_filter_alarm
-    unit_of_measurement: 'days'
-    accuracy_decimals: 0
-    register_type: read
-    address: 1103
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Days to next filter change alarm"
-    id: nilan_days_to_next_filter_alarm
-    unit_of_measurement: 'days'
-    accuracy_decimals: 0
-    register_type: read
-    address: 1104
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Heat exchange efficiency"
-    id: nilan_heat_exchange_efficiency
-    unit_of_measurement: '%'
-    accuracy_decimals: 1
-    register_type: read
-    address: 1204
-    filters:
-      - multiply: 0.01
-      
-###########################
-#### HOLDING REGISTERS ####
-###########################
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Cooling set temperature"
-    id: nilan_cooling_set_temp
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    register_type: holding
-    address: 1200
-    filters:
-      - multiply: 0.01
-      
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Min summer temperature"
-    id: nilan_min_summer_temp
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    register_type: holding
-    address: 1201
-    filters:
-      - multiply: 0.01 
-  
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Min winter temperature"
-    id: nilan_min_winter_temp
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    register_type: holding
-    address: 1202
-    filters:
-      - multiply: 0.01 
-  
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Max summer temperature"
-    id: nilan_max_summer_temp
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    register_type: holding
-    address: 1203
-    filters:
-      - multiply: 0.01 
-  
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Max winter temperature"
-    id: nilan_max_winter_temp
-    unit_of_measurement: °C
-    accuracy_decimals: 1
-    device_class: temperature
-    register_type: holding
-    address: 1204
-    filters:
-      - multiply: 0.01
-
 binary_sensor:
-#########################
-#### INPUT REGISTERS ####
   - platform: template
     name: "Air filter alarm"
     id: nilan_filter_alarm
-    lambda: !lambda |-
+    lambda: |-
       return (id(nilan_alarm_list_1_id).state == 19
         || id(nilan_alarm_list_2_id).state == 19
         || id(nilan_alarm_list_3_id).state == 19);
-        
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Door open"
-    id: nilan_door_open
-    register_type: read
-    address: 102
-    bitmask: 1
-    
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Motor thermo fuse"
-    id: nilan_motor_thermo_fuse
-    register_type: read
-    address: 104
-    bitmask: 1
 
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Heating surface frost-overheat"
-    id: nilan_heating_surface_frost_oerheat
-    register_type: read
-    address: 105
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Airflow monitor"
-    id: nilan_airflow_monitor
-    register_type: read
-    address: 106
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Low pressure switch"
-    id: nilan_low_pressure
-    register_type: read
-    address: 108
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "User function 2"
-    id: nilan_user_function_2
-    register_type: read
-    address: 113
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Air damper closed"
-    id: nilan_damper_closed
-    register_type: read
-    address: 114
-    bitmask: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: nilan_modbus_controller
-    name: "Air damper opened"
-    id: nilan_damper_opened
-    register_type: read
-    address: 115
-    bitmask: 1
+text_sensor:
+  - platform: template
+    name: "Air filter alarm status"
+    lambda: |-
+      if (id(nilan_filter_alarm).state) {
+        return {"Skift filter"};
+      } else {
+        return {"Filter OK"};
+      }

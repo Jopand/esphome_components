@@ -1,0 +1,8 @@
+binary_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Air filter alarm"
+    id: nilan_air_filter_alarm
+    register_type: read
+    address: 101
+    bitmask: 1

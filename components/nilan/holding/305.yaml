@@ -1,0 +1,12 @@
+number:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Time Year"
+    id: nilan_time_year
+    min_value: 2000
+    max_value: 2100
+    step: 1.0
+    address: 305
+    reuse_previous_range: false
+    use_write_multiple: true
+    internal: true

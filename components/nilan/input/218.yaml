@@ -1,0 +1,13 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Pressure pibe temperature"
+    id: nilan_prepibe_temp_t18
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    value_type: S_WORD
+    register_type: read
+    address: 218
+    filters:
+      - multiply: 0.01

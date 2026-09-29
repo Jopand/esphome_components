@@ -1,0 +1,7 @@
+binary_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Alarm relay state"
+    id: nilan_alarm_relay_state
+    register_type: holding
+    address: 126

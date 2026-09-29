@@ -1,0 +1,15 @@
+select:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Week program select"
+    id: nilan_week_program_select
+    address: 500
+    reuse_previous_range: false
+    use_write_multiple: true
+    value_type: U_WORD
+    optionsmap:
+      "None" : 0
+      "Program 1" : 1
+      "Program 2" : 2
+      "Program 3" : 3
+      "Erase" : 4

@@ -1,0 +1,33 @@
+text_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Software version"
+    id: nilan_version_info
+    register_type: read
+    response_size: 6
+    address: 1
+    entity_category: diagnostic
+    lambda: !lambda |-
+      float bus_version = nilan_bus_version->get_state();
+      std::string output;
+      
+      if (bus_version == 8) {
+        output = data[item->offset+1];
+        output += data[item->offset+0];
+        output += data[item->offset+3];
+        output += data[item->offset+2];
+        output += data[item->offset+5]; 
+        output += data[item->offset+4];
+      } else {  
+        output = data[item->offset+0];
+        output += data[item->offset+1];
+        output += '.';
+        output += data[item->offset+2];
+        output += data[item->offset+3];
+        output += '.';
+        output += data[item->offset+4];
+        output += data[item->offset+5];
+      }
+ 
+      ESP_LOGD("main","Parsed SW version: %s", output.c_str()); 
+      return output;

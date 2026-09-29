@@ -1,0 +1,17 @@
+select:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Set user function"
+    id: nilan_set_user_function
+    address: 601
+    reuse_previous_range: false
+    use_write_multiple: true
+    value_type: U_WORD
+    optionsmap:
+      "None" : 0
+      "Extend" : 1
+      "Inlet" : 2
+      "Exhaust" : 3
+      "External heater offset" : 4
+      "Ventilate" : 5
+      "Cooker Hood" : 6

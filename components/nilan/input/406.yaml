@@ -1,0 +1,8 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    internal: true
+    id: nilan_alarm_list_2_time
+    accuracy_decimals: 0
+    register_type: read
+    address: 406

@@ -1,0 +1,2 @@
+text_sensor:
+  - id: !remove nilan_hotwater_anode_state # IR1701

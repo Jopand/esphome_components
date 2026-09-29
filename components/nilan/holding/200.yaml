@@ -1,0 +1,12 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Exhaust fan speed"
+    id: nilan_exhaust_fan_speed
+    unit_of_measurement: '%'
+    icon: "mdi:percent"
+    accuracy_decimals: 0
+    register_type: holding
+    address: 200
+    filters:
+      - multiply: 0.01

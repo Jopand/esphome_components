@@ -1,0 +1,11 @@
+number:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "CO2 limit high ventilation"
+    id: nilan_co2_limit_high_ventilation
+    min_value: 650
+    max_value: 800
+    step: 1.0
+    address: 1922
+    reuse_previous_range: false
+    use_write_multiple: true

@@ -1,0 +1,13 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "AUX temperature"
+    id: nilan_aux_temp_t16
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    value_type: S_WORD
+    register_type: read
+    address: 216
+    filters:
+      - multiply: 0.01

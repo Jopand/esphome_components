@@ -1,0 +1,13 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Average Humidity"
+    id: nilan_average_humidity
+    unit_of_measurement: '%'
+    accuracy_decimals: 1
+    device_class: humidity
+    register_type: read
+    address: 3100  
+    icon: mdi:water
+    filters:
+      - multiply: 0.01  

@@ -1,0 +1,12 @@
+substitutions:
+  branch_ref: main
+
+packages:
+  remote_package:
+    url: https://github.com/Jopand/esphome_components
+    ref: ${branch_ref}
+    files:
+      - components/nilan/cts602-common.yaml
+      - components/nilan/input/400-light.yaml
+      - components/nilan/holding/0.yaml
+    refresh: 0s

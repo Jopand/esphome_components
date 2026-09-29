@@ -1,0 +1,12 @@
+number:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Temperature set"
+    id: nilan_target_temperature_set
+    min_value: 12
+    max_value: 30
+    step: 1.0
+    address: 1004
+    reuse_previous_range: false
+    use_write_multiple: true
+    multiply: 100

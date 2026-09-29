@@ -1,0 +1,32 @@
+text_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Control mode"
+    id: nilan_actual_control_state
+    register_type: read
+    address: 1002
+    lambda: !lambda |-
+      uint16_t int_mode = (data[item->offset] << 8) + data[item->offset+1];
+      ESP_LOGD("main","Parsed operation mode int : %d", int_mode);
+
+      switch (int_mode) {
+        case 0:  return esphome::optional<std::string>("Off");
+        case 1:  return esphome::optional<std::string>("Shift");
+        case 2:  return esphome::optional<std::string>("Stop");
+        case 3:  return esphome::optional<std::string>("Start");
+        case 4:  return esphome::optional<std::string>("Standby");
+        case 5:  return esphome::optional<std::string>("Ventilation stop");
+        case 6:  return esphome::optional<std::string>("Ventilation");
+        case 7:  return esphome::optional<std::string>("Heating");
+        case 8:  return esphome::optional<std::string>("Cooling");
+        case 9:  return esphome::optional<std::string>("Hot water");
+        case 10: return esphome::optional<std::string>("Legionella");
+        case 11: return esphome::optional<std::string>("Cooling + hot water");
+        case 12: return esphome::optional<std::string>("Central heating");
+        case 13: return esphome::optional<std::string>("Defrost");
+        case 14: return esphome::optional<std::string>("Frost secure");
+        case 15: return esphome::optional<std::string>("Service");
+        case 16: return esphome::optional<std::string>("Alarm");
+        case 17: return esphome::optional<std::string>("Heating + hot water");
+        default: return esphome::optional<std::string>("Unknown");
+      }

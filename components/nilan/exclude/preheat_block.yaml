@@ -1,0 +1,2 @@
+sensor:
+  - id: !remove nilan_preheater_block_remaining # IR2100

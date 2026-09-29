@@ -1,0 +1,3 @@
+sensor:
+  - id: !remove nilan_preheat_temp_t17 # IR217
+  - id: !remove nilan_preheater_block_remaining # IR2100

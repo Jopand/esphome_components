@@ -1,0 +1,2 @@
+binary_sensor:
+  - id: !remove nilan_brine_pressostat # IR117

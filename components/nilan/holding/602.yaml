@@ -1,0 +1,22 @@
+number:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "User time set (minutes)"
+    id: nilan_user_time_set
+    value_type: U_WORD
+    min_value: 1.0
+    max_value: 480.0
+    # The controller's HHMM value 130 represents 1h30; expose minutes to ESPHome.
+    lambda: !lambda |-
+      uint16_t hours = x / 100;
+      uint16_t minutes = static_cast<uint16_t>(x) % 100;
+      return hours * 60 + minutes;
+    write_lambda: !lambda |-
+      uint16_t total_minutes = x;
+      uint16_t hhmm = (total_minutes / 60) * 100 + total_minutes % 60;
+      modbus::helpers::float_to_payload(payload, hhmm, modbus::helpers::SensorValueType::U_WORD);
+      return x;
+    step: 1.0
+    address: 602
+    reuse_previous_range: false
+    use_write_multiple: true

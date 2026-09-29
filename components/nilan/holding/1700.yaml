@@ -1,0 +1,12 @@
+number:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Top temperature set"
+    id: nilan_top_temperature_set
+    min_value: 15
+    max_value: 55
+    step: 1.0
+    address: 1700
+    reuse_previous_range: false
+    use_write_multiple: true
+    multiply: 100

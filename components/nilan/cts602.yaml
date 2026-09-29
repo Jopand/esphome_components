@@ -1,0 +1,79 @@
+substitutions:
+  branch_ref: main
+
+packages:
+  remote_package:
+    url: https://github.com/Jopand/esphome_components
+    ref: ${branch_ref}
+    files:
+      - components/nilan/cts602-common.yaml
+      ### INPUT REGISTER FILES ###
+      - components/nilan/input/400-hmi350t.yaml
+      - components/nilan/input/4.yaml
+      - components/nilan/input/5.yaml
+      - components/nilan/input/102.yaml
+      - components/nilan/input/104.yaml
+      - components/nilan/input/106.yaml
+      - components/nilan/input/107.yaml
+      - components/nilan/input/108.yaml
+      - components/nilan/input/109.yaml
+      - components/nilan/input/110.yaml
+      - components/nilan/input/111.yaml
+      - components/nilan/input/112.yaml
+      - components/nilan/input/116.yaml
+      - components/nilan/input/117.yaml
+      - components/nilan/input/201.yaml
+      - components/nilan/input/202.yaml
+      - components/nilan/input/205.yaml
+      - components/nilan/input/206.yaml
+      - components/nilan/input/210.yaml
+      - components/nilan/input/211.yaml
+      - components/nilan/input/212.yaml
+      - components/nilan/input/213.yaml
+      - components/nilan/input/214.yaml
+      - components/nilan/input/215.yaml
+      - components/nilan/input/216.yaml
+      - components/nilan/input/217.yaml
+      - components/nilan/input/218.yaml
+      - components/nilan/input/219.yaml
+      - components/nilan/input/220.yaml
+      - components/nilan/input/1500.yaml
+      - components/nilan/input/1700.yaml
+      - components/nilan/input/1701.yaml
+      - components/nilan/input/1800.yaml
+      - components/nilan/input/2100.yaml
+      - components/nilan/input/2200.yaml
+      - components/nilan/input/2201.yaml
+      - components/nilan/input/2202.yaml
+      - components/nilan/input/2221.yaml
+      - components/nilan/input/2222.yaml
+      ### HOLDING REGISTER FILES ###
+      - components/nilan/holding/106.yaml
+      - components/nilan/holding/107.yaml
+      - components/nilan/holding/108.yaml
+      - components/nilan/holding/109.yaml
+      - components/nilan/holding/110.yaml
+      - components/nilan/holding/111.yaml
+      - components/nilan/holding/112.yaml
+      - components/nilan/holding/113.yaml
+      - components/nilan/holding/114.yaml
+      - components/nilan/holding/115.yaml
+      - components/nilan/holding/116.yaml
+      - components/nilan/holding/117.yaml
+      - components/nilan/holding/118.yaml
+      - components/nilan/holding/119.yaml
+      - components/nilan/holding/120.yaml
+      - components/nilan/holding/121.yaml
+      - components/nilan/holding/123.yaml
+      - components/nilan/holding/125.yaml
+      - components/nilan/holding/1700.yaml
+      - components/nilan/holding/1701.yaml
+    refresh: 0s
+
+binary_sensor:
+  - platform: template
+    id: nilan_condenser_state
+    name: Condenser state
+
+# HMI350T documents Bus.Address at HR50, but HR0 has also been observed.
+# Leave it out of this profile until its address is confirmed on hardware.

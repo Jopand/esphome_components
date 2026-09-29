@@ -1,0 +1,15 @@
+# Equivalent to ek.yaml; include only one of these overlays.
+binary_sensor:
+  - id: !remove nilan_ek_circulation_pump # HR118
+  - id: !remove nilan_ek_heater_relay_1 # HR119
+  - id: !remove nilan_ek_heater_relay_2 # HR120
+  - id: !remove nilan_ek_heater_relay_3 # HR121
+  - id: !remove nilan_external_radiator_heat # HR122
+
+sensor:
+  - id: !remove nilan_ek_return_temperature # IR213
+  - id: !remove nilan_ek_supply_temperature # IR214
+  - id: !remove nilan_external_heating_setpoint # IR1800
+
+number:
+  - id: !remove nilan_external_heating_offset_from_room_temp_set # HR1800

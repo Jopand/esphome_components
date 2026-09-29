@@ -1,0 +1,7 @@
+binary_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Hot water 3-way valve"
+    id: nilan_hot_water_3_way_valve
+    register_type: holding
+    address: 117

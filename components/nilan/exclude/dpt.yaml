@@ -1,0 +1,14 @@
+binary_sensor:
+  - id: !remove nilan_dpt_in_session
+
+sensor:
+  - id: !remove nilan_dpt_air_flow_1
+  - id: !remove nilan_dpt_air_flow_2
+  - id: !remove nilan_dpt_pressure_1
+  - id: !remove nilan_dpt_pressure_2
+
+button:
+  - id: !remove nilan_calibrate_dpt
+
+output:
+  - id: !remove nilan_calibrate_dpt_command

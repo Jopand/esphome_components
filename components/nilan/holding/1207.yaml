@@ -1,0 +1,14 @@
+number:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Free energy night cooling room setpoint"
+    id: nilan_free_energy_night_cooling_room_setpoint
+    min_value: 10
+    max_value: 30
+    step: 1.0
+    unit_of_measurement: °C
+    device_class: temperature
+    address: 1207
+    reuse_previous_range: false
+    use_write_multiple: true
+    multiply: 100

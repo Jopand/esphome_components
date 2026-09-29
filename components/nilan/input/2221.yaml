@@ -1,0 +1,11 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "DPT pressure 1"
+    id: nilan_dpt_pressure_1
+    unit_of_measurement: Pa
+    accuracy_decimals: 0
+    device_class: pressure
+    value_type: U_WORD
+    register_type: read
+    address: 2221

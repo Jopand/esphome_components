@@ -1,0 +1,8 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Active alarms"
+    id: nilan_active_alarms
+    accuracy_decimals: 0
+    register_type: read
+    address: 400

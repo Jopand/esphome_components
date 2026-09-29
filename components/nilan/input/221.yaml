@@ -1,0 +1,17 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Humidity"
+    id: nilan_humidity
+    unit_of_measurement: '%'
+    accuracy_decimals: 1
+    device_class: humidity
+    register_type: read
+    address: 221
+    filters:
+      - multiply: 0.01
+    on_value: 
+      - lambda: !lambda |-
+          id(nilan_aqi_humidity).publish_state( (x < 35) ? "Too Dry" : 
+                                          (x < 65) ? "Perfect" : 
+                                          "Too Humid");

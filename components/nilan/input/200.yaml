@@ -1,0 +1,13 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Controller temperature"
+    id: nilan_controller_temp_t0
+    unit_of_measurement: °C
+    accuracy_decimals: 1
+    device_class: temperature
+    register_type: read
+    value_type: S_WORD
+    address: 200
+    filters:
+      - multiply: 0.01

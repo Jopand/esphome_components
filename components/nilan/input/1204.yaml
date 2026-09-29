@@ -1,0 +1,11 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Heat exchange efficiency"
+    id: nilan_heat_exchange_efficiency
+    unit_of_measurement: '%'
+    accuracy_decimals: 1
+    register_type: read
+    address: 1204
+    filters:
+      - multiply: 0.01

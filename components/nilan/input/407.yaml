@@ -1,0 +1,8 @@
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Alarm list 3 id"
+    id: nilan_alarm_list_3_id
+    accuracy_decimals: 0
+    register_type: read
+    address: 407

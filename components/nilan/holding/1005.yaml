@@ -1,0 +1,19 @@
+select:
+  - platform: modbus_controller
+    modbus_controller_id: nilan_modbus_controller
+    name: "Set service mode"
+    id: nilan_set_service_mode
+    address: 1005
+    reuse_previous_range: false
+    use_write_multiple: true
+    value_type: U_WORD
+    optionsmap:
+      "Off" : 0
+      "Defrost" : 1
+      "Flaps" : 2
+      "Inlet" : 3
+      "Exhaust" : 4
+      "Compressor" : 5
+      "Heating" : 6
+      "Hot water" : 7
+      "Central heat" : 8
