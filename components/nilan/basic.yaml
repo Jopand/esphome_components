@@ -29,6 +29,9 @@ packages:
 
 nilan:
 
+esphome:
+  min_version: 2026.9.0
+
 sensor:
   - platform: template
     name: "Calculated difference exhaust and inlet"
